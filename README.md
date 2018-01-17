@@ -29,7 +29,7 @@ Op deze pagina kan gezocht worden naar tags. Dit zijn de tags die personen zelf 
 
 ### Persoonlijke pagina
 <img src='https://i.imgur.com/PpTtY7U.jpg'/>
-Het profiel is relatief simpel. Bovenaan staat de naam met daaronder de gebruikersnaam en daarnaast de profielfoto. Hieronder staan de volgers en volgend. Het overzicht van de foto's is chronologisch en uitgelijnd. 
+Het profiel is relatief simpel. Bovenaan staat de naam met daaronder de gebruikersnaam en daarnaast de profielfoto. Hieronder staan de volgers en volgend. Het overzicht van de foto's is chronologisch en uitgelijnd. Deze paginia is geen onderdeel van het Minimal Viable Product. Het is echter wel de eerstvolgende prioriteit nadat we aan MVP voldaan hebben.
 
 
 ## Features
