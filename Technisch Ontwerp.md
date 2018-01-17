@@ -98,11 +98,17 @@ Dit is geen pagina, maar een route die ervoor zorgt dat de gebruiker de gelikete
 #### Model
 - Bestand: volgen.users.py
 - Functie: follow()
-#### View
-- Template
+#### Controller
+- Route:
+    - POST:
+        - zet in de database dat de ene gebruiker de andere gebruiker volgt
+        - zorg ervoor dat de gebruiker de foto's van de ander te zien krijgt
+ 
+### Settings
+Dit is een pagina waar de gebruiker kan uitloggen of diens tags aan kan passen. 
 
 
-hoi    
+        
         
 
 
