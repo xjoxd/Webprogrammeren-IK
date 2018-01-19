@@ -72,17 +72,17 @@ Op deze pagina kan men foto's op GIFs uploaden en een bijschrift erbij zetten.
     - GET:
         - laat /upload.html zien
     - POST:
-        - zet de foto/GIF in de database
+        - zet de foto/GIF in de database door de upload() functie aan te roepen
         - redirect naar /homepage.html als de foto geupload is
         
 ### Discoverpagina - POST
 Op deze pagina kan men naar een tag zoeken en de profielen met dezelfde tag liken (en ook meteen volgen) of disliken.
 #### Model
 - Bestand: models.users.py
-- Functie: discover()
+- Functie: discover() returnt een profiel
 #### View
 - Template: discover.html
-- Stylesheet: discover.html
+- Stylesheet: discover.css
 #### Controller
 - Route:
     - GET: 
@@ -111,14 +111,14 @@ Dit is een pagina waar de gebruiker kan uitloggen of diens tags aan kan passen.
 - Functie: settings()
 #### View
 - Template: settings.html
-- Stylesheet: discover.html
+- Stylesheet: settings.css
 #### Controller
 - Route:
     - GET:
         - laat /settings.html zien
     - POST:
         - zorg ervoor dat de gebruiker tot tien tags kan instellen
-        - sla de tags op in de database
+        - sla de tags op in de database via de settings() functies
         - zorg ervoor dat de gebruiker kan uitloggen
         
 ## Views
@@ -146,3 +146,5 @@ http://flask.pocoo.org
 #### GIFs
 Daarnaast zullen we de voorgestelde gifs gebruiken.
 http://api.giphy.com
+#### Bootstrap
+Ook gebruiken we bootstrap om de front-end van de website te kunnen maken.
