@@ -4,7 +4,7 @@ from flask_session import Session
 from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
 
-from helpers2 import *
+from helpers import *
 
 # configure application
 app = Flask(__name__)
