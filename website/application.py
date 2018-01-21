@@ -105,7 +105,7 @@ def register():
 
         persoon = db.execute("INSERT INTO users (username, hash) VALUES(:username, :ww)", \
                              username=request.form.get("username"), \
-                             ww=pwd_context.encrypt(request.form.get("password")))
+                             ww=pwd_context.hash(request.form.get("password")))
 
         if not persoon:
             return apology("Gebruikersnaam is niet beschikbaar")
