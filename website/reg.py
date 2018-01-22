@@ -48,4 +48,3 @@ def reg():
 
     else:
         return render_template("register.html")
-
