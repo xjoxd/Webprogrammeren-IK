@@ -14,6 +14,15 @@ app = Flask(__name__)
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///website.db")
 
+########################################################################
+# def check(username):
+#     return db.execute("SELECT * FROM users WHERE username=:username", username=username)
+
+# def reg(username):
+#     return db.execute("INSERT INTO users (username, hash) VALUES (:username, :hash)", username=username, hash=hash)
+########################################################################
+
+
 def reg():
     """Register user."""
 
@@ -27,7 +36,6 @@ def reg():
         # wachtwoord encrypten
         password = request.form.get("password")
         hash = pwd_context.hash(password)
-
 
         # checken of de gebruikersnaam niet reeds bestaat
         check = db.execute(" SELECT * FROM users WHERE username=:username", username = request.form.get("username"))
@@ -48,4 +56,4 @@ def reg():
         return redirect(url_for("homepage"))
 
     else:
-        return render_template("register.html")
+return render_template("register.html")

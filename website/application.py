@@ -16,7 +16,7 @@ app = Flask(__name__)
 
 photos = UploadSet("photos", IMAGES)
 
-app.config["UPLOADED_PHOTOS_DEST"] = "Webprogrammeren-IK/website/static/img"
+app.config["UPLOADED_PHOTOS_DEST"] = "static/img"
 configure_uploads(app, photos)
 
 # ensure responses aren't cached
@@ -60,6 +60,40 @@ def logout():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    """Register user."""
+####################################################################
+    # # als de gebruiker via POST kwam
+    # if request.method == "POST":
+    #     if request.form.get("password") != request.form.get("confirm_password"):
+    #         return apology("Passwords do not match!")
+
+    #     # wachtwoord encrypten
+    #     password = request.form.get("password")
+    #     hash = pwd_context.hash(password)
+
+    #     username = request.form.get("username")
+
+    #     # checken of de gebruikersnaam niet reeds bestaat
+    #     checken = check(username)
+    #     if not checken:
+    #         return apology("User already exists.")
+
+    #     # de gebruiker registreren
+    #     reg(username)
+
+    #     # user id ophalen uit de database
+    #     rows = rows(username)
+
+    #     # onthouden welke gebruiker ingelogd is
+    #     session["user_id"] = rows[0]["id"]
+
+    #     # stuur de gebruiker naar de homepagina
+    #     return redirect(url_for("homepage"))
+
+    # else:
+    #     return render_template("register.html")
+################################################################
+
     return reg()
 
 @app.route("/post", methods=["GET", "POST"])
@@ -67,6 +101,8 @@ def register():
 def post():
     if request.method == "POST" and "photo" in request.files:
         filename = photos.save(request.files["photo"])
-        upload_file(filename)
-        return redirect(url_for("post"))
-    return render_template("homepage.html")
+        ID = session["user_id"]
+        username = usernames(ID)
+        upload_file(filename, username)
+        return redirect(url_for("homepage"))
+    return render_template("post.html")
