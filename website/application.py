@@ -28,7 +28,6 @@ Session(app)
 db = SQL("sqlite:///website.db")
 
 
-
 @app.route("/")
 @login_required
 def homepage():
@@ -39,26 +38,25 @@ def homepage():
 def login():
     """Log user in."""
 
-    # forget any user_id
+    # alle gebruiker id's vergeten
     session.clear()
 
-    # if user reached route via POST (as by submitting a form via POST)
+    # als de gebruiker via POST kwam
     if request.method == "POST":
 
-        # query database for username
+        # gebruikersnaam opvragen uit database
         rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
 
-        # ensure username exists and password is correct
+        # verzekeren dat gebruikersnaam bestaat en wachtwoord correct is
         if len(rows) != 1 or not pwd_context.verify(request.form.get("password"), rows[0]["hash"]):
             return apology("invalid username and/or password")
 
-        # remember which user has logged in
+        # onthouden welke gebruiker ingelogd is
         session["user_id"] = rows[0]["id"]
 
-        # redirect user to home page
+        # stuur de gebruiker naar de homepagina
         return redirect(url_for("homepage"))
 
-    # else if user reached route via GET (as by clicking a link or via redirect)
     else:
         return render_template("login.html")
 
@@ -66,17 +64,17 @@ def login():
 def logout():
     """Log user out."""
 
-    # forget any user_id
+    # alle gebruiker id's vergeten
     session.clear()
 
-    # redirect user to login form
+    # gebruiker terugsturen naar de loginpagina
     return redirect(url_for("login"))
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user."""
 
-    # als de user via POST kwam
+    # als de gebruiker via POST kwam
     if request.method == "POST":
 
         # ervoor zorgen dat de wachtwoorden hetzelfde zijn
