@@ -28,7 +28,9 @@ Session(app)
 db = SQL("sqlite:///website.db")
 
 
-@app.route("/homepage")
+
+
+@app.route("/")
 @login_required
 def homepage():
 
