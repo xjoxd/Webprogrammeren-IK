@@ -28,6 +28,7 @@ def reg():
         password = request.form.get("password")
         hash = pwd_context.hash(password)
 
+
         # checken of de gebruikersnaam niet reeds bestaat
         check = db.execute(" SELECT * FROM users WHERE username=:username", username = request.form.get("username"))
         if check:
