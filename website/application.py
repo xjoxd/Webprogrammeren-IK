@@ -7,10 +7,6 @@ from tempfile import mkdtemp
 from helpers import *
 from log import *
 from reg import *
-<<<<<<< HEAD
-
-=======
->>>>>>> ae8f68ed7c53bdbdc443bf4682526b5950db23c9
 
 # configure application
 app = Flask(__name__)
