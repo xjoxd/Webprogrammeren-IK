@@ -27,12 +27,6 @@ Session(app)
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///website.db")
 
-
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 090144922ecccd40dc6c60dcf344a99dd0333cf1
 @app.route("/")
 @login_required
 def homepage():
