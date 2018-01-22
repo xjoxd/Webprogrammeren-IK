@@ -29,7 +29,6 @@ db = SQL("sqlite:///website.db")
 
 
 
-
 @app.route("/")
 @login_required
 def homepage():
