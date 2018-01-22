@@ -84,35 +84,30 @@ def logout():
 def register():
     """Register user."""
 
-    # kan niet registreren terwijl ingelogd
-    session.clear()
-
     # als de user via POST kwam
     if request.method == "POST":
 
-        # controleer of username aanwezig
-        if not request.form.get("username"):
-            return apology("Geen gebruikersnaam aanwezig")
+        # ervoor zorgen dat de wachtwoorden hetzelfde zijn
+        if request.form.get("password") != request.form.get("confirm_password"):
+            return apology("Passwords do not match!")
 
-        # controleer of wachtwoord aanwezig
-        elif not request.form.get("password"):
-            return apology("Geen wachtwoord opgegeven")
+        # wachtwoord encrypten
+        password = request.form.get("password")
+        hash = pwd_context.hash(password)
 
-        # controleer of wachtwoord de 2de keer goed is ingevuld
-        elif not request.form.get("confirmpassword") == request.form.get("password"):
-            return apology("Wachtwoorden komen niet overeen")
+        # checken of de gebruikersnaam niet reeds bestaat
+        result = db.execute("INSERT INTO users (username, hash) VALUES (:username, :hash)", username=request.form.get("username"), hash=hash)
+        if not result:
+            return apology("Username already exists. Pick a different username.")
 
+        # de gebruikersnaam ophalen uit de database
+        rows = db.execute("SELECT * FROM users WHERE username=:username", username=request.form.get("username"))
 
-        persoon = db.execute("INSERT INTO users (username, hash) VALUES(:username, :ww)", \
-                             username=request.form.get("username"), \
-                             ww=pwd_context.encrypt(request.form.get("password")))
+        # onthouden welke gebruiker ingelogd is
+        session["user_id"] = rows[0]["id"]
 
-        if not persoon:
-            return apology("Gebruikersnaam is niet beschikbaar")
-
-
-        # stuur de gebruiker terug naar de login pagina
-        return redirect(url_for("login"))
+        # stuur de gebruiker naar de homepagina
+        return redirect(url_for("homepage.html"))
 
     else:
         return render_template("register.html")
