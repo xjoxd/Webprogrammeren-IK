@@ -7,9 +7,17 @@ from tempfile import mkdtemp
 from helpers import *
 from log import *
 from reg import *
+from upload import *
+
+from flask_uploads import UploadSet, configure_uploads, IMAGES
 
 # configure application
 app = Flask(__name__)
+
+photos = UploadSet("photos", IMAGES)
+
+app.config["UPLOADED_PHOTOS_DEST"] = "Webprogrammeren-IK/website/static/img"
+configure_uploads(app, photos)
 
 # ensure responses aren't cached
 if app.config["DEBUG"]:
@@ -53,3 +61,12 @@ def logout():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     return reg()
+
+@app.route("/post", methods=["GET", "POST"])
+@login_required
+def post():
+    if request.method == "POST" and "photo" in request.files:
+        filename = photos.save(request.files["photo"])
+        upload_file(filename)
+        return redirect(url_for("post"))
+    return render_template("homepage.html")
