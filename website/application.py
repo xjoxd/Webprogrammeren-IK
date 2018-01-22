@@ -28,9 +28,9 @@ Session(app)
 db = SQL("sqlite:///website.db")
 
 
-@app.route("/")
+@app.route("/homepage")
 @login_required
-def index():
+def homepage():
 
     return apology("TODO")
 
@@ -44,14 +44,6 @@ def login():
     # if user reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
 
-        # ensure username was submitted
-        if not request.form.get("username"):
-            return apology("must provide username")
-
-        # ensure password was submitted
-        elif not request.form.get("password"):
-            return apology("must provide password")
-
         # query database for username
         rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
 
@@ -63,7 +55,7 @@ def login():
         session["user_id"] = rows[0]["id"]
 
         # redirect user to home page
-        return redirect(url_for("index"))
+        return redirect(url_for("homepage"))
 
     # else if user reached route via GET (as by clicking a link or via redirect)
     else:
@@ -79,40 +71,34 @@ def logout():
     # redirect user to login form
     return redirect(url_for("login"))
 
-
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user."""
 
-    # kan niet registreren terwijl ingelogd
-    session.clear()
-
     # als de user via POST kwam
     if request.method == "POST":
 
-        # controleer of username aanwezig
-        if not request.form.get("username"):
-            return apology("Geen gebruikersnaam aanwezig")
+        # ervoor zorgen dat de wachtwoorden hetzelfde zijn
+        if request.form.get("password") != request.form.get("confirm_password"):
+            return apology("Passwords do not match!")
 
-        # controleer of wachtwoord aanwezig
-        elif not request.form.get("password"):
-            return apology("Geen wachtwoord opgegeven")
+        # wachtwoord encrypten
+        password = request.form.get("password")
+        hash = pwd_context.hash(password)
 
-        # controleer of wachtwoord de 2de keer goed is ingevuld
-        elif not request.form.get("confirmpassword") == request.form.get("password"):
-            return apology("Wachtwoorden komen niet overeen")
+        # checken of de gebruikersnaam niet reeds bestaat
+        result = db.execute("INSERT INTO users (username, hash) VALUES (:username, :hash)", username=request.form.get("username"), hash=hash)
+        if not result:
+            return apology("Username already exists. Pick a different username.")
 
+        # de gebruikersnaam ophalen uit de database
+        rows = db.execute("SELECT * FROM users WHERE username=:username", username=request.form.get("username"))
 
-        persoon = db.execute("INSERT INTO users (username, hash) VALUES(:username, :ww)", \
-                             username=request.form.get("username"), \
-                             ww=pwd_context.encrypt(request.form.get("password")))
+        # onthouden welke gebruiker ingelogd is
+        session["user_id"] = rows[0]["id"]
 
-        if not persoon:
-            return apology("Gebruikersnaam is niet beschikbaar")
-
-
-        # stuur de gebruiker terug naar de login pagina
-        return redirect(url_for("login"))
+        # stuur de gebruiker naar de homepagina
+        return redirect(url_for("homepage"))
 
     else:
         return render_template("register.html")
