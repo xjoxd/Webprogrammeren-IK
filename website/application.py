@@ -103,18 +103,8 @@ def register():
         # de gebruikersnaam ophalen uit de database
         rows = db.execute("SELECT * FROM users WHERE username=:username", username=request.form.get("username"))
 
-<<<<<<< HEAD
         # onthouden welke gebruiker ingelogd is
         session["user_id"] = rows[0]["id"]
-=======
-        persoon = db.execute("INSERT INTO users (username, hash) VALUES(:username, :ww)", \
-                             username=request.form.get("username"), \
-                             ww=pwd_context.hash(request.form.get("password")))
-
-        if not persoon:
-            return apology("Gebruikersnaam is niet beschikbaar")
-
->>>>>>> a760b97ad11f21356b42888f74152a9dd4411473
 
         # stuur de gebruiker naar de homepagina
         return redirect(url_for("homepage.html"))
