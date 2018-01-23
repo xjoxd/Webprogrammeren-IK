@@ -8,7 +8,7 @@ from helpers import *
 from log import *
 from reg import *
 from upload import *
-from homepage import *
+from disc import *
 
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 
@@ -112,3 +112,11 @@ def post():
         upload_file(filename, username)
         return redirect(url_for("homepage"))
     return render_template("post.html")
+
+@app.route("/discover", methods=["GET", "POST"])
+@login_required
+def discover():
+    if request.method == "POST":
+        return disc()
+    else:
+        return render_template("discover.html")
