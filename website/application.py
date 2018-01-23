@@ -10,6 +10,7 @@ from reg import *
 from upload import *
 from homepage import *
 from settings import *
+from discover import*
 
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 
@@ -114,3 +115,11 @@ def settings():
 
     else:
         return render_template("settings.html")
+
+@app.route("/discover", methods=["GET", "POST"])
+@login_required
+def discover():
+    if request.method == "POST":
+        return disc()
+    else:
+        return render_template("discover.html")
