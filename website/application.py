@@ -55,7 +55,18 @@ def homepage():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    return log()
+
+    # als de gebruiker via POST kwam
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        
+        # gebruiker inloggen
+        return log(username, password)
+
+    else:
+        return render_template("login.html")
+    
 
 @app.route("/logout")
 def logout():
