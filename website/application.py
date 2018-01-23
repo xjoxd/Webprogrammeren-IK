@@ -69,7 +69,7 @@ def logout():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user."""
-####################################################################
+
     # als de gebruiker via POST kwam
     if request.method == "POST":
 
