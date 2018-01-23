@@ -11,28 +11,20 @@ app = Flask(__name__)
 
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///website.db")
-def log():
+
+def log(username, password):
 
     """Log user in."""
 
-    # alle gebruiker id's vergeten
-    session.clear()
+    # gebruikersnaam opvragen uit database
+    rows = db.execute("SELECT * FROM users WHERE username=:username", username=username)
 
-    # als de gebruiker via POST kwam
-    if request.method == "POST":
+    # verzekeren dat gebruikersnaam bestaat en wachtwoord correct is
+    if len(rows) != 1 or not pwd_context.verify(password, rows[0]["hash"]):
+        return apology("invalid username and/or password")
 
-        # gebruikersnaam opvragen uit database
-        rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
+    # onthouden welke gebruiker ingelogd is
+    session["user_id"] = rows[0]["id"]
 
-        # verzekeren dat gebruikersnaam bestaat en wachtwoord correct is
-        if len(rows) != 1 or not pwd_context.verify(request.form.get("password"), rows[0]["hash"]):
-            return apology("invalid username and/or password")
-
-        # onthouden welke gebruiker ingelogd is
-        session["user_id"] = rows[0]["id"]
-
-        # stuur de gebruiker naar de homepagina
-        return redirect(url_for("homepage"))
-
-    else:
-        return render_template("login.html")
+    # stuur de gebruiker naar de homepagina
+    return redirect(url_for("homepage"))
