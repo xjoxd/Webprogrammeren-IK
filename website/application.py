@@ -9,6 +9,7 @@ from log import *
 from reg import *
 from upload import *
 from homepage import *
+from settings import *
 
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 
@@ -43,9 +44,9 @@ db = SQL("sqlite:///website.db")
 @login_required
 def homepage():
     # if request.method == "POST":
-
-
-
+    #     return redirect(url_for("homepage"))
+    # else:
+    #     return render_template("homepage.html")
 
 
     return apology("TODO")
@@ -68,39 +69,23 @@ def logout():
 def register():
     """Register user."""
 ####################################################################
-    # # als de gebruiker via POST kwam
-    # if request.method == "POST":
-    #     if request.form.get("password") != request.form.get("confirm_password"):
-    #         return apology("Passwords do not match!")
+    # als de gebruiker via POST kwam
+    if request.method == "POST":
 
-    #     # wachtwoord encrypten
-    #     password = request.form.get("password")
-    #     hash = pwd_context.hash(password)
+        # excuses returenen als de wachtwoorden niet hetzelfde zijn
+        if request.form.get("password") != request.form.get("confirm_password"):
+            return apology("Passwords do not match!")
 
-    #     username = request.form.get("username")
+        # wachtwoord encrypten
+        password = request.form.get("password")
+        hash = pwd_context.hash(password)
 
-    #     # checken of de gebruikersnaam niet reeds bestaat
-    #     checken = check(username)
-    #     if not checken:
-    #         return apology("User already exists.")
+        username = request.form.get("username")
 
-    #     # de gebruiker registreren
-    #     reg(username)
+        return reg(username, hash)
 
-    #     # user id ophalen uit de database
-    #     rows = rows(username)
-
-    #     # onthouden welke gebruiker ingelogd is
-    #     session["user_id"] = rows[0]["id"]
-
-    #     # stuur de gebruiker naar de homepagina
-    #     return redirect(url_for("homepage"))
-
-    # else:
-    #     return render_template("register.html")
-################################################################
-
-    return reg()
+    else:
+        return render_template("register.html")
 
 @app.route("/post", methods=["GET", "POST"])
 @login_required
@@ -112,3 +97,20 @@ def post():
         upload_file(filename, username)
         return redirect(url_for("homepage"))
     return render_template("post.html")
+
+@app.route("/settings", methods=["GET", "POST"])
+@login_required
+def settings():
+    """Change password."""
+
+    if request.method == "POST":
+
+        # tag 1 aanvragen en in de database stoppen
+        tag1 = request.form.get("tag1")
+        tag1(tag1)
+
+        # redirect user to home page
+        return redirect(url_for("homepage"))
+
+    else:
+        return render_template("settings.html")
