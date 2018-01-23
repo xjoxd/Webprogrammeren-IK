@@ -41,12 +41,3 @@ def login_required(f):
             return redirect("/login")
         return f(*args, **kwargs)
     return decorated_function
-
-
-#########################################################################
-def rows(username):
-    return db.execute("SELECT * FROM users WHERE username=:username", username=username)
-
-def usernames(ID):
-    return db.execute("SELECT username FROM users WHERE id=:id", id=session["user_id"])
-#########################################################################

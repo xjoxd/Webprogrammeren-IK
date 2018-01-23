@@ -14,46 +14,20 @@ app = Flask(__name__)
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///website.db")
 
-########################################################################
-# def check(username):
-#     return db.execute("SELECT * FROM users WHERE username=:username", username=username)
 
-# def reg(username):
-#     return db.execute("INSERT INTO users (username, hash) VALUES (:username, :hash)", username=username, hash=hash)
-########################################################################
+def reg(username, hash):
+    check = db.execute("SELECT * FROM users WHERE username=:username", username=username)
+    if len(check) > 0:
+        return apology("User already exists.")
 
+    # gebruiker registreren
+    db.execute("INSERT INTO users (username, hash) VALUES (:username, :hash)", username=username, hash=hash)
 
-def reg():
-    """Register user."""
+    # user id ophalen uit database
+    rows = db.execute("SELECT * FROM users WHERE username=:username", username=username)
 
-    # als de gebruiker via POST kwam
-    if request.method == "POST":
+    # onthouden welke gebruiker ingelogd is
+    session["user_id"] = rows[0]["id"]
 
-        # ervoor zorgen dat de wachtwoorden hetzelfde zijn
-        if request.form.get("password") != request.form.get("confirm_password"):
-            return apology("Passwords do not match!")
-
-        # wachtwoord encrypten
-        password = request.form.get("password")
-        hash = pwd_context.hash(password)
-
-        # checken of de gebruikersnaam niet reeds bestaat
-        check = db.execute(" SELECT * FROM users WHERE username=:username", username = request.form.get("username"))
-        if check:
-            return apology("user already exists")
-
-        result = db.execute("INSERT INTO users (username, hash) VALUES (:username, :hash)", username=request.form.get("username"), hash=hash)
-        #if not result:
-        #    return apology("Username already exists. Pick a different username.")
-
-        # de gebruikersnaam ophalen uit de database
-        rows = db.execute("SELECT * FROM users WHERE username=:username", username=request.form.get("username"))
-
-        # onthouden welke gebruiker ingelogd is
-        session["user_id"] = rows[0]["id"]
-
-        # stuur de gebruiker naar de homepagina
-        return redirect(url_for("homepage"))
-
-    else:
-        return render_template("register.html")
+    # stuur de gebruiker naar de homepagina
+    return redirect(url_for("homepage"))
