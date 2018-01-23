@@ -15,9 +15,12 @@ db = SQL("sqlite:///website.db")
 def upload_file(filename):
 
     username = db.execute("SELECT username FROM users WHERE id=:id", id=session["user_id"])
+    print(username)
+    print(session["user_id"])
+    print(filename)
 
     db.execute("INSERT INTO images (id, username, path, likes) VALUES (:id, :username, :path, :likes)",\
-    id=session["user_id"], username=username, path=filename, likes=0)
+    id=session["user_id"], username=username[0]["username"], path=filename, likes=0)
 
     return redirect(url_for("homepage"))
 
