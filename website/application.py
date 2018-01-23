@@ -12,6 +12,7 @@ from homepage import *
 #from settings import *
 from disc import*
 
+
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 
 # configure application
