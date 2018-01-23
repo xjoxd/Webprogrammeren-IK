@@ -60,13 +60,13 @@ def login():
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
-        
+
         # gebruiker inloggen
         return log(username, password)
 
     else:
         return render_template("login.html")
-    
+
 
 @app.route("/logout")
 def logout():
@@ -104,12 +104,13 @@ def register():
 @login_required
 def post():
     if request.method == "POST" and "photo" in request.files:
+
         filename = photos.save(request.files["photo"])
-        ID = session["user_id"]
-        username = usernames(ID)
-        upload_file(filename, username)
-        return redirect(url_for("homepage"))
-    return render_template("post.html")
+
+        return upload_file(filename)
+
+    else:
+        return render_template("post.html")
 
 @app.route("/settings", methods=["GET", "POST"])
 @login_required

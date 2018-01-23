@@ -12,9 +12,14 @@ from flask_session import Session
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///website.db")
 
-def upload_file(filename, username):
-    return db.execute("INSERT INTO images (id, username, path, likes) VALUES (:id, :username, :path, :likes)",\
+def upload_file(filename):
+
+    username = db.execute("SELECT username FROM users WHERE id=:id", id=session["user_id"])
+
+    db.execute("INSERT INTO images (id, username, path, likes) VALUES (:id, :username, :path, :likes)",\
     id=session["user_id"], username=username, path=filename, likes=0)
+
+    return redirect(url_for("homepage"))
 
 
 
