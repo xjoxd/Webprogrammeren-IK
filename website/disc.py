@@ -17,14 +17,12 @@ db = SQL("sqlite:///website.db")
 
 def disc():
 
-    # als de gebruiker via POST kwam
-    if request.method == "POST":
 
-        # ervoor zorgen dat de wachtwoorden hetzelfde zijn
-        tag = request.form.get("#tag")
+    # ervoor zorgen dat de wachtwoorden hetzelfde zijn
+    tag = request.form.get("#tag")
 
-        randoms = db.execute(" SELECT * FROM users WHERE tag =: ", tag=tag)
-        print(randoms)
+    randoms = db.execute(" SELECT * FROM users WHERE tag =: ", tag=tag)
+    print(randoms)
 
         #while randoms:
         #   profile():
@@ -35,5 +33,7 @@ def disc():
         #   profile = old
         #
         #   rerun
+
+    return render_template("discover.html")
 
 #def profile(randoms):
