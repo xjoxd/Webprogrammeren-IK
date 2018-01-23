@@ -9,8 +9,8 @@ from log import *
 from reg import *
 from upload import *
 from homepage import *
-from settings import *
-from discover import*
+# from settings import *
+from discove import *
 
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 

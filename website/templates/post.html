@@ -7,21 +7,6 @@
 {% block main %}
 
     <form method=POST enctype=multipart/form-data action="{{ url_for("post") }}">
-
-        <input type=file name=photo>
-        <input type="submit">
-    </form>
-{% endblock %}
-
-{% extends "layout.html" %}
-
-{% block title %}
-    Post
-{% endblock %}
-
-{% block main %}
-
-    <form method=POST enctype=multipart/form-data action="{{ url_for("post") }}">
         <label for="txtPost">Description</label>
                 <textarea class="form-control" id="txtPost" name="inputDescription"></textarea>
         <input type=file name=photo>
