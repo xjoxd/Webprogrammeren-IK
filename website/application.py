@@ -8,6 +8,7 @@ from helpers import *
 from log import *
 from reg import *
 from upload import *
+from homepage import *
 
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 
@@ -41,6 +42,11 @@ db = SQL("sqlite:///website.db")
 @app.route("/")
 @login_required
 def homepage():
+    # if request.method == "POST":
+
+
+
+
 
     return apology("TODO")
 

@@ -56,4 +56,4 @@ def reg():
         return redirect(url_for("homepage"))
 
     else:
-return render_template("register.html")
+        return render_template("register.html")
