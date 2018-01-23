@@ -4,20 +4,6 @@
     Post
 {% endblock %}
 
-{% block main %}
-
-    <form method=POST enctype=multipart/form-data action="{{ url_for("post") }}">
-
-        <input type=file name=photo>
-        <input type="submit">
-    </form>
-{% endblock %}
-
-{% extends "layout.html" %}
-
-{% block title %}
-    Post
-{% endblock %}
 
 {% block main %}
 
@@ -28,7 +14,6 @@
         <div class = "form-group">
             <button class = "btn btn-default" type="submit" > Post</button>
         </div>
-
-
     </form>
+
 {% endblock %}
