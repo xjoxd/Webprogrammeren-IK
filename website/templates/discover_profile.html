@@ -10,6 +10,12 @@
     {% for image in images %}
         <a><img src="/static/img/{{ image.path }}" width="500" height="500"></img></a>
     {% endfor %}
+        <form action="{{ url_for('discover') }}" method="post" onsubmit="return value">
+            <button name="like" class="press" value="{{ images.image_id }}"><img src="/static/hart.png" width="50" height="50"></button>
+        </form>
+        <form action="{{ url_for('discover') }}" method="post" onsubmit="return value">
+            <button name="like" class="press" value="{{ images.image_id }}"><img src="/static/kruis.png" width="50" height="50"></button>
+        </form>
     </div>
 
 {% endblock %}

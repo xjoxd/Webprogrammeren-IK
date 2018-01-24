@@ -46,9 +46,11 @@ db = SQL("sqlite:///website.db")
 @login_required
 def homepage():
     if request.method == "POST":
-        return display()
+        pictures = display()
+        return render_template("homepage.html", images=pictures)
     else:
-        return display()
+        pictures = display()
+        return render_template("homepage.html", images=pictures)
 
 
     # return apology("TODO")

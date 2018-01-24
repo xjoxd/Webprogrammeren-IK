@@ -14,5 +14,5 @@ db = SQL("sqlite:///website.db")
 
 def display():
     pictures = db.execute("SELECT * FROM images ORDER BY timestamp DESC")
-    return render_template("homepage.html", images=pictures)
+    return pictures
 
