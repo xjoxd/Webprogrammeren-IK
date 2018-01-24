@@ -106,8 +106,9 @@ def post():
     if request.method == "POST" and "photo" in request.files:
 
         filename = photos.save(request.files["photo"])
+        description = request.form.get("description")
 
-        return upload_file(filename)
+        return upload_file(filename, description)
 
     else:
         return render_template("post.html")
