@@ -1,29 +1,18 @@
-<!--{% extends "layout.html" %}-->
-
-<!--{% block title %}-->
-<!--    Homepage-->
-<!--{% endblock %}-->
-
-<!--{% block main %}-->
-<!--    <h2> To be made! </h2>-->
-<!--    <img alt="Sorry!" src="https://i.imgur.com/970l1Ju.png"/>-->
-<!--    <h3> {{bottom}} </h3>-->
-<!--{% endblock %}-->
-
-<!--{% extends "layout.html" %}-->
-
-<!--{% block title %}-->
-<!--    Register-->
-<!--{% endblock %}-->
-
-<!--    <form action="{{ url_for('homepage') }}" method="post">-->
-
-
 {% extends "layout.html" %}
+{% block title %}
+    Homepage
+{% endblock %}
 
 
 {% block main %}
-
+    <div>
+    {% for image in images %}
+        <a><img src="/static/img/{{ image.path }}" width="500" height="500"></img><br>{{ image.description }}</a></h3></div>
+        <form action="{{ url_for('homepage') }}" method="post" onsubmit="return value">
+            <button name="like" class="press" value="{{ image.image_id }}"><img src="/static/hart.png"></button>
+        </form>
+    {% endfor %}
+    </div>
 
 
 {% endblock %}

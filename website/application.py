@@ -45,13 +45,13 @@ db = SQL("sqlite:///website.db")
 @app.route("/")
 @login_required
 def homepage():
-    # if request.method == "POST":
-    #     return redirect(url_for("homepage"))
-    # else:
-    #     return render_template("homepage.html")
+    if request.method == "POST":
+        return display()
+    else:
+        return display()
 
 
-    return apology("TODO")
+    # return apology("TODO")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

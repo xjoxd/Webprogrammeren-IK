@@ -15,9 +15,6 @@ db = SQL("sqlite:///website.db")
 def upload_file(filename, description):
 
     username = db.execute("SELECT username FROM users WHERE id=:id", id=session["user_id"])
-    print(username)
-    print(session["user_id"])
-    print(filename)
 
     if not description:
         db.execute("INSERT INTO images (id, username, path, likes, description) VALUES (:id, :username, :path, :likes, :description)",\
