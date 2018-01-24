@@ -17,7 +17,11 @@ db = SQL("sqlite:///website.db")
 
 def disc(tag):
 
-    profiles = db.execute(" SELECT * FROM users WHERE tag1=:tag1 OR tag2=:tag2", tag1=tag, tag2=tag)
+    profiles = db.execute("SELECT * FROM users WHERE tag1=:tag1 OR tag2=:tag2", tag1=tag, tag2=tag)
+
+    for profile in profiles:
+        images = db.execute("SELECT * FROM images WHERE id=:id ORDER BY timestamp DESC LIMIT 4", id=profile["id"])
+
 
     return render_template("discover_profile.html")
 

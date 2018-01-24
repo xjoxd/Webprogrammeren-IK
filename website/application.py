@@ -135,7 +135,7 @@ def settings():
 def discover():
     if request.method == "POST":
         tag = request.form.get("tag")
-        return disc()
+        return disc(tag)
     else:
         return render_template("discover.html")
 

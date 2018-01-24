@@ -6,7 +6,10 @@
 
 {% block main %}
 
-
-
+    <div>
+    {% for image in images %}
+        <a><img src="/static/img/{{ image.path }}" width="500" height="500"></img></a>
+    {% endfor %}
+    </div>
 
 {% endblock %}
