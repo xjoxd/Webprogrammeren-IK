@@ -144,8 +144,18 @@ def settings():
 def discover():
     if request.method == "POST":
         tag = request.form.get("tag")
-        images = disc(tag)
-        return render_template("discover_profile.html", images=images)
+
+        if request.form.get("like"):
+            images = disc(tag)
+            return render_template("discover_profile.html", images=images)
+
+        elif request.form.get("dislike"):
+            images = disc(tag)
+            return render_template("discover_profile.html", images=images)
+
+        else:
+            images = disc(tag)
+            return render_template("discover_profile.html", images=images)
     else:
         return render_template("discover.html")
 

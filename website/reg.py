@@ -28,5 +28,6 @@ def reg(username, hash):
 
     # onthouden welke gebruiker ingelogd is
     session["user_id"] = rows[0]["id"]
+    session["username"] = rows[0]["username"]
 
 
