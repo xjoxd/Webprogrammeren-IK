@@ -17,21 +17,7 @@ db = SQL("sqlite:///website.db")
 
 def disc(tag):
 
-    # ervoor zorgen dat de wachtwoorden hetzelfde zijn
-
-
-    randoms = db.execute(" SELECT * FROM users WHERE tag=:tag", tag=tag)
-
-        #while randoms:
-        #   profile():
-        #
-        #   if like:
-        #       follow
-        #
-        #   profile = old
-        #
-        #   rerun
+    profiles = db.execute(" SELECT * FROM users WHERE tag1=:tag1 OR tag2=:tag2", tag1=tag, tag2=tag)
 
     return render_template("discover_profile.html")
 
-#def profile(randoms):
