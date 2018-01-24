@@ -145,17 +145,23 @@ def discover():
     if request.method == "POST":
         tag = request.form.get("tag")
 
-        if request.form.get("like"):
-            images = disc(tag)
-            return render_template("discover_profile.html", images=images)
+        returns = disc(tag)
 
-        elif request.form.get("dislike"):
-            images = disc(tag)
-            return render_template("discover_profile.html", images=images)
+        for item in returns:
 
-        else:
-            images = disc(tag)
-            return render_template("discover_profile.html", images=images)
+            user = item[1]
+            images = item[0]
+
+
+            if request.form.get("like"):
+                #follow()
+                return render_template("discover_profile.html", images=images)
+
+            elif request.form.get("dislike"):
+                return render_template("discover_profil.html", images=images)
+
+            else:
+                return render_template("discover.html", images=images)
     else:
         return render_template("discover.html")
 

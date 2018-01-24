@@ -19,14 +19,24 @@ def disc(tag):
 
     profiles = db.execute("SELECT * FROM users WHERE tag1=:tag1 OR tag2=:tag2", tag1=tag, tag2=tag)
 
-    for profile in profiles:
-        images = db.execute("SELECT * FROM images WHERE id=:id ORDER BY timestamp DESC LIMIT 4", id=profile["id"])
+    if not profiles:
+        return apology("There are no users with this tag")
 
-    return images
+    poss = []
+
+    for profile in profiles:
+        images = db.execute("SELECT path FROM images WHERE id=:id ORDER BY timestamp DESC LIMIT 4", id=profile["id"])
+        if images:
+            poss.append([images,profile["username"]])
+
+
+    return(poss)
 
 def follow(images):
     db.execute("INSERT INTO follow (follower_id, follower_username, followed_id, followed_username \
     VALUES (:follower_id, :follower_username, :followed_id, :followed_username)",\
     follower_id=session["user_id"], follower_username=session["username"], )
+
+
 
 
