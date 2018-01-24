@@ -13,6 +13,6 @@ from flask_session import Session
 db = SQL("sqlite:///website.db")
 
 def display():
-    pictures = db.execute("SELECT * FROM images GROUP BY timestamp")
+    pictures = db.execute("SELECT * FROM images ORDER BY timestamp DESC")
     return render_template("homepage.html", images=pictures)
 
