@@ -14,24 +14,4 @@ from flask_uploads import UploadSet, configure_uploads, IMAGES
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///website.db")
 
-
-def disc(tag):
-
-    # ervoor zorgen dat de wachtwoorden hetzelfde zijn
-
-
-    randoms = db.execute(" SELECT * FROM users WHERE tag=:tag", tag=tag)
-
-        #while randoms:
-        #   profile():
-        #
-        #   if like:
-        #       follow
-        #
-        #   profile = old
-        #
-        #   rerun
-
-    return render_template("discover_profile.html")
-
-#def profile(randoms):
+def disc_profile():

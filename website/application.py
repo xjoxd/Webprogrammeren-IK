@@ -121,10 +121,11 @@ def settings():
     if request.method == "POST":
 
         # tag 1 aanvragen en in de database stoppen
-        tag = request.form.get("tag1")
+        first_tag = request.form.get("tag1")
+        second_tag = request.form.get("tag2")
 
         # redirect user to home page
-        return tag1(tag)
+        return tag(first_tag, second_tag)
 
     else:
         return render_template("settings.html")
@@ -133,7 +134,10 @@ def settings():
 @login_required
 def discover():
     if request.method == "POST":
+        tag = request.form.get("tag")
         return disc()
     else:
         return render_template("discover.html")
+
+
 
