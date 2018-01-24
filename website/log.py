@@ -26,5 +26,4 @@ def log(username, password):
     # onthouden welke gebruiker ingelogd is
     session["user_id"] = rows[0]["id"]
 
-    # stuur de gebruiker naar de homepagina
-    return redirect(url_for("homepage"))
+

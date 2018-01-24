@@ -17,15 +17,15 @@ def upload_file(filename, description):
     username = db.execute("SELECT username FROM users WHERE id=:id", id=session["user_id"])
 
     if not description:
-        db.execute("INSERT INTO images (id, username, path, likes, description) VALUES (:id, :username, :path, :likes, :description)",\
+        photo = db.execute("INSERT INTO images (id, username, path, likes, description) VALUES (:id, :username, :path, :likes, :description)",\
         id=session["user_id"], username=username[0]["username"], path=filename, likes=0, description=None)
     else:
-        db.execute("INSERT INTO images (id, username, path, likes, description) VALUES (:id, :username, :path, :likes, :description)",\
+        photo = db.execute("INSERT INTO images (id, username, path, likes, description) VALUES (:id, :username, :path, :likes, :description)",\
         id=session["user_id"], username=username[0]["username"], path=filename, likes=0, description=description)
 
 
+    return photo
 
-    return redirect(url_for("homepage"))
 
 
 

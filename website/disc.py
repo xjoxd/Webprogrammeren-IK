@@ -22,6 +22,5 @@ def disc(tag):
     for profile in profiles:
         images = db.execute("SELECT * FROM images WHERE id=:id ORDER BY timestamp DESC LIMIT 4", id=profile["id"])
 
-
-    return render_template("discover_profile.html")
+    return images
 

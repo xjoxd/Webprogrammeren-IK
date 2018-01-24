@@ -15,21 +15,27 @@ app = Flask(__name__)
 db = SQL("sqlite:///website.db")
 
 def tag(first_tag, second_tag):
-    # tag in de database stoppen als er nog geen tag1 bestaat
-    if len(db.execute("SELECT tag1 FROM users WHERE id=:ID", ID=session["user_id"])) == 0:
-        db.execute("INSERT INTO users (tag1) VALUES (:tag)", tag=first_tag)
-    # database updaten als er al een tag1 bestaat
+    if len(first_tag) > 0:
+        # tag in de database stoppen als er nog geen tag1 bestaat
+        if len(db.execute("SELECT tag1 FROM users WHERE id=:ID", ID=session["user_id"])) == 0:
+            tag1 = db.execute("INSERT INTO users (tag1) VALUES (:tag)", tag=first_tag)
+        # database updaten als er al een tag1 bestaat
+        else:
+            tag1 = db.execute("UPDATE users SET tag1=:tag WHERE id=:ID;", ID=session["user_id"], tag=first_tag)
     else:
-        db.execute("UPDATE users SET tag1=:tag WHERE id=:ID;", ID=session["user_id"], tag=first_tag)
+        tag1 = db.execute("SELECT tag1 FROM users WHERE id=:ID", ID=session["user_id"])
 
-    # tag in de database stoppen als er nog geen tag2 bestaat
-    if len(db.execute("SELECT tag2 FROM users WHERE id=:ID", ID=session["user_id"])) == 0:
-        db.execute("INSERT INTO users (tag1) VALUES (:tag)", tag=second_tag)
-    # database updaten als er al een tag2 bestaat
+    if len(second_tag) > 0:
+        # tag in de database stoppen als er nog geen tag2 bestaat
+        if len(db.execute("SELECT tag2 FROM users WHERE id=:ID", ID=session["user_id"])) == 0:
+            tag2 = db.execute("INSERT INTO users (tag1) VALUES (:tag)", tag=second_tag)
+        # database updaten als er al een tag2 bestaat
+        else:
+            tag2 = db.execute("UPDATE users SET tag2=:tag WHERE id=:ID;", ID=session["user_id"], tag=second_tag)
     else:
-        db.execute("UPDATE users SET tag2=:tag WHERE id=:ID;", ID=session["user_id"], tag=second_tag)
+        tag2 = db.execute("SELECT tag2 FROM users WHERE id=:ID", ID=session["user_id"])
 
-    return redirect(url_for("homepage"))
+    return (tag1, tag2)
 
 
 

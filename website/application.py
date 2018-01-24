@@ -10,7 +10,7 @@ from reg import *
 from upload import *
 from homepage import *
 from settings import *
-from disc import*
+from disc import *
 
 
 from flask_uploads import UploadSet, configure_uploads, IMAGES
@@ -62,7 +62,10 @@ def login():
         password = request.form.get("password")
 
         # gebruiker inloggen
-        return log(username, password)
+        log(username, password)
+
+        # stuur de gebruiker naar de homepagina
+        return redirect(url_for("homepage"))
 
     else:
         return render_template("login.html")
@@ -95,7 +98,9 @@ def register():
 
         username = request.form.get("username")
 
-        return reg(username, hash)
+        reg(username, hash)
+
+        return redirect(url_for("homepage"))
 
     else:
         return render_template("register.html")
@@ -108,7 +113,8 @@ def post():
         filename = photos.save(request.files["photo"])
         description = request.form.get("description")
 
-        return upload_file(filename, description)
+        upload_file(filename, description)
+        return redirect(url_for("homepage"))
 
     else:
         return render_template("post.html")
@@ -124,8 +130,9 @@ def settings():
         first_tag = request.form.get("tag1")
         second_tag = request.form.get("tag2")
 
-        # redirect user to home page
-        return tag(first_tag, second_tag)
+        tag(first_tag, second_tag)
+
+        return redirect(url_for("homepage"))
 
     else:
         return render_template("settings.html")
@@ -135,7 +142,8 @@ def settings():
 def discover():
     if request.method == "POST":
         tag = request.form.get("tag")
-        return disc(tag)
+        images = disc(tag)
+        return render_template("discover_profile.html", images=images)
     else:
         return render_template("discover.html")
 

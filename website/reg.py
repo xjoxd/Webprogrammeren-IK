@@ -29,5 +29,4 @@ def reg(username, hash):
     # onthouden welke gebruiker ingelogd is
     session["user_id"] = rows[0]["id"]
 
-    # stuur de gebruiker naar de homepagina
-    return redirect(url_for("homepage"))
+
