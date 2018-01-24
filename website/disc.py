@@ -17,12 +17,10 @@ db = SQL("sqlite:///website.db")
 
 def disc():
 
-
     # ervoor zorgen dat de wachtwoorden hetzelfde zijn
-    tag = request.form.get("#tag")
+    tag = request.form.get("tag")
 
-    randoms = db.execute(" SELECT * FROM users WHERE tag =: ", tag=tag)
-    print(randoms)
+    randoms = db.execute(" SELECT * FROM users WHERE tag=:tag", tag=tag)
 
         #while randoms:
         #   profile():

@@ -9,7 +9,7 @@ from log import *
 from reg import *
 from upload import *
 from homepage import *
-#from settings import *
+from settings import *
 from disc import*
 
 
@@ -121,11 +121,10 @@ def settings():
     if request.method == "POST":
 
         # tag 1 aanvragen en in de database stoppen
-        tag1 = request.form.get("tag1")
-        tag1(tag1)
+        tag = request.form.get("tag1")
 
         # redirect user to home page
-        return redirect(url_for("homepage"))
+        return tag1(tag)
 
     else:
         return render_template("settings.html")
