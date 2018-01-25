@@ -1,12 +1,11 @@
 import csv
 import urllib.request
 
-from flask import redirect, render_template, request, session
-from functools import wraps
-
 from cs50 import SQL
+from functools import wraps
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 from flask_session import Session
+from flask import redirect, render_template, request, session
 from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
 
@@ -15,7 +14,7 @@ db = SQL("sqlite:///website.db")
 
 
 def apology(message, code=400):
-    """Renders message as an apology to user."""
+    """Stuurt een bericht als excuses naar de gebruiker."""
     def escape(s):
         """
         Escape special characters.
@@ -31,7 +30,7 @@ def apology(message, code=400):
 
 def login_required(f):
     """
-    Decorate routes to require login.
+    Zorgt dat een gebruiker ingelogd moet zijn om functies te kunnen gebruiken.
 
     http://flask.pocoo.org/docs/0.12/patterns/viewdecorators/
     """
