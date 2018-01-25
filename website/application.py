@@ -46,8 +46,14 @@ db = SQL("sqlite:///website.db")
 @login_required
 def homepage():
     if request.method == "POST":
-        pictures = display()
-        return render_template("homepage.html", images=pictures)
+        if request.form.get("like"):
+            image_id = request.form.get("like")
+            likes = like(image_id)
+            pictures = display()
+            return render_template("homepage.html", images=pictures)
+        else:
+            pictures = display()
+            return render_template("homepage.html", images=pictures)
     else:
         pictures = display()
         return render_template("homepage.html", images=pictures)
@@ -159,7 +165,7 @@ def discover():
                 return render_template("discover_profile.html", images=images)
 
             elif request.form.get("dislike"):
-                return render_template("discover_profil.html", images=images)
+                return render_template("discover_profile.html", images=images)
 
             else:
                 return render_template("discover.html", images=images)

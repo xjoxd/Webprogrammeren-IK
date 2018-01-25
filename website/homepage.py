@@ -16,3 +16,12 @@ def display():
     pictures = db.execute("SELECT * FROM images ORDER BY timestamp DESC")
     return pictures
 
+def like(image_id):
+    likes = db.execute("SELECT like FROM images WHERE image_id=:image_id", image_id=image_id)
+    likes = cares[0]["like"] + 1
+    like = db.execute("UPDATE like FROM images WHERE image_id=:image_id", image_id=likes)
+    return like
+
+
+
+

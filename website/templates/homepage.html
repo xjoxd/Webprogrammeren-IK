@@ -5,19 +5,16 @@
 
 
 {% block main %}
-    <div>
     {% for image in images %}
-        <a><img src="/static/img/{{ image.path }}" width="500" height="500"></img><br>{{ image.description }}</a></h3></div>
-        <form action="{{ url_for('homepage') }}" method="post" onsubmit="return value">
-            <button name="like" class="press" value="{{ image.image_id }}"><img src="/static/hart.png" width="50" height="50"></button>
-        </form>
+        <div>
+
+                <img src="/static/img/{{ image.path }}" width="500" height="500"> <br>{{ image.description }}</br> <br> {{ image.username}} </br>
+                <form action="{{ url_for('homepage') }}" method="post" onsubmit="return value">
+                    <button name="like" class="btn btn-danger" value="{{ image.image_id }}"><img src="/static/hart.png" width="50" height="50"></button>
+                </form>
+                {{ image.like }} likes
+        </div>
+        <br>
     {% endfor %}
-    </div>
-
-
 {% endblock %}
-
-
-
-
 
