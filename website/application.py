@@ -1,6 +1,7 @@
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 from flask_session import Session
+from flask_uploads import UploadSet, configure_uploads, IMAGES
 from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
 
@@ -12,9 +13,6 @@ from homepage import *
 from settings import *
 from disc import *
 
-
-from flask_uploads import UploadSet, configure_uploads, IMAGES
-
 # configure application
 app = Flask(__name__)
 
@@ -23,7 +21,7 @@ photos = UploadSet("photos", IMAGES)
 app.config["UPLOADED_PHOTOS_DEST"] = "static/img"
 configure_uploads(app, photos)
 
-# ensure responses aren't cached
+# Zorgt ervoor dat de "responses" niet zijn gecached.
 if app.config["DEBUG"]:
     @app.after_request
     def after_request(response):
@@ -41,10 +39,11 @@ Session(app)
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///website.db")
 
-
 @app.route("/", methods=["GET", "POST"])
 @login_required
 def homepage():
+    """Geeft de homepagina weer."""
+
     if request.method == "POST":
         if request.form.get("like"):
             image_id = request.form.get("like")
@@ -80,55 +79,55 @@ def comment():
     #     pictures = display()
     #     return render_template("homepage.html", images=pictures)
 
-
-
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    """logt de gebruiker in."""
 
-    # als de gebruiker via POST kwam
+    # Als de gebruiker via POST kwam.
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
 
-        # gebruiker inloggen
+        # De gebruiker wordt hier ingelogd.
         log(username, password)
 
-        # stuur de gebruiker naar de homepagina
+        # Stuurt de gebruiker naar de homepagina.
         return redirect(url_for("homepage"))
 
     else:
         return render_template("login.html")
 
-
 @app.route("/logout")
 def logout():
-    """Log user out."""
+    """Logt de gebruiker uit."""
 
-    # alle gebruiker id's vergeten
+    # Alle gebruikers hun id's vergeten.
     session.clear()
 
-    # gebruiker terugsturen naar de loginpagina
+    # Stuurt de gebruiker terug naar de loginpagina.
     return redirect(url_for("login"))
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    """Register user."""
+    """Registreert de gebruiker."""
 
-    # als de gebruiker via POST kwam
+    # Als de gebruiker via POST kwam.
     if request.method == "POST":
 
-        # excuses returenen als de wachtwoorden niet hetzelfde zijn
+        # Returned excuses als de wachtwoorden niet hetzelfde zijn.
         if request.form.get("password") != request.form.get("confirm_password"):
             return apology("Passwords do not match!")
 
-        # wachtwoord encrypten
+        # Het wachtwoord encrypten.
         password = request.form.get("password")
         hash = pwd_context.hash(password)
 
         username = request.form.get("username")
 
+        # De wordt geregistreerd met de functie reg.
         reg(username, hash)
 
+        # Stuurt de gebruiker naar de homepagina.
         return redirect(url_for("homepage"))
 
     else:
@@ -137,12 +136,18 @@ def register():
 @app.route("/post", methods=["GET", "POST"])
 @login_required
 def post():
+    """De gebruiker kan een foto upoaden."""
+
+    # Als de gebruiker via POST kwam.
     if request.method == "POST" and "photo" in request.files:
 
         filename = photos.save(request.files["photo"])
         description = request.form.get("description")
 
+        # De foto en de beschrijving wordt geüpload.
         upload_file(filename, description)
+
+        # Stuurt de gebruiker naar de homepagina.
         return redirect(url_for("homepage"))
 
     else:
@@ -151,16 +156,19 @@ def post():
 @app.route("/settings", methods=["GET", "POST"])
 @login_required
 def settings():
-    """Change password."""
+    """De gebruiker kan tags toevoegen."""
 
+    # Als de gebruiker via POST kwam.
     if request.method == "POST":
 
-        # tag 1 aanvragen en in de database stoppen
+        # De tags worden aangevraagd en in de database gestopt.
         first_tag = request.form.get("tag1")
         second_tag = request.form.get("tag2")
 
+        # De tags worden aan de gebruiker gekoppeld.
         tag(first_tag, second_tag)
 
+        # Stuurt de gebruiker naar de homepagina.
         return redirect(url_for("homepage"))
 
     else:
@@ -175,7 +183,6 @@ def discover():
         returns = disc(tag)
 
         for item in returns:
-
             user = item[1]
             images = item[0]
 
@@ -190,6 +197,7 @@ def discover():
 
             else:
                 return render_template("discover.html", images=images)
+
     else:
         return render_template("discover.html")
 
