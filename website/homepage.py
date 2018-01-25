@@ -17,10 +17,12 @@ def display():
     return pictures
 
 def like(image_id):
-    likes = db.execute("SELECT like FROM images WHERE image_id=:image_id", image_id=image_id)
-    likes = cares[0]["like"] + 1
-    like = db.execute("UPDATE like FROM images WHERE image_id=:image_id", image_id=likes)
-    return like
+    likes = db.execute("SELECT likes FROM images WHERE image_id=:image_id", image_id=image_id)
+    likes = likes[0]["likes"] + 1
+    db.execute("UPDATE images SET likes=:likes WHERE image_id=:image_id", likes=likes, image_id=image_id)
+
+def commenting(image_id):
+    comments = db.execute
 
 
 

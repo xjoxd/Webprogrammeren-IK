@@ -42,7 +42,7 @@ Session(app)
 db = SQL("sqlite:///website.db")
 
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 @login_required
 def homepage():
     if request.method == "POST":
@@ -51,6 +51,8 @@ def homepage():
             likes = like(image_id)
             pictures = display()
             return render_template("homepage.html", images=pictures)
+        elif request.form.get("comment"):
+            return redirect(url_for("comment"))
         else:
             pictures = display()
             return render_template("homepage.html", images=pictures)
@@ -58,8 +60,27 @@ def homepage():
         pictures = display()
         return render_template("homepage.html", images=pictures)
 
+@app.route("/comment", methods=["GET", "POST"])
+@login_required
+def comment():
+    return apology("TODO")
+    if request.method == "POST":
+        if request.form.get("comment"):
 
-    # return apology("TODO")
+            image_id = request.form.get("comment")
+
+
+    #         likes = like(image_id)
+    #         pictures = display()
+    #         return render_template("homepage.html", images=pictures)
+    #     else:
+    #         pictures = display()
+    #         return render_template("homepage.html", images=pictures)
+    # else:
+    #     pictures = display()
+    #     return render_template("homepage.html", images=pictures)
+
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

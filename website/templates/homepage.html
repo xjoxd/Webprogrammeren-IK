@@ -5,12 +5,13 @@
 
 
 {% block main %}
+    <form><input type=button value="Refresh" onClick="window.location.reload()"></form>
     {% for image in images %}
         <div>
-
                 <img src="/static/img/{{ image.path }}" width="500" height="500"> <br>{{ image.description }}</br> <br> {{ image.username}} </br>
                 <form action="{{ url_for('homepage') }}" method="post" onsubmit="return value">
-                    <button name="like" class="btn btn-danger" value="{{ image.image_id }}"><img src="/static/hart.png" width="50" height="50"></button>
+                    <button name="like" class="btn btn-danger btn-sm" value="{{ image.image_id }}"><img src="/static/hart.png" width="50" height="50"></button>
+                    <button name="comment" class="btnclick btn-sm" value="{{ image.image_id }}"><img src="/static/comment.png" width="50" height="50"></button>
                 </form>
                 {{ image.like }} likes
         </div>
