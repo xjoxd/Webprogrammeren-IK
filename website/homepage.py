@@ -38,4 +38,5 @@ def like(image_id):
 
 def commenting(image_id):
     """Voegt reacties oftewel comments toe aan de foto."""
+
     comments = db.execute
