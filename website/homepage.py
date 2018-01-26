@@ -39,4 +39,4 @@ def like(image_id):
 def commenting(image_id):
     """Voegt reacties oftewel comments toe aan de foto."""
 
-    comments = db.execute
+    comments = db.execute("INSERT INTO comments (image_id, comment, id, username") VALUES (:image_id, :comment, :)

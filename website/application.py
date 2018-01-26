@@ -62,11 +62,24 @@ def homepage():
 @app.route("/comment", methods=["GET", "POST"])
 @login_required
 def comment():
-    return apology("TODO")
+    # return apology("TODO")
     if request.method == "POST":
-        if request.form.get("comment"):
+        if request.form.get("post"):
+            if len(request.form.get("comment")) > 0:
+                comment = request.form.get("comment")
+                # image_id =
+                # commenting(comment, image_id)
+                pictures = display()
+                return render_template("homepage.html", images=pictures)
+            else:
+                pictures = display()
+                return render_template("homepage.html", images=pictures)
+        elif request.form.get("cancel"):
+            pictures = display()
+            return render_template("homepage.html", images=pictures)
 
-            image_id = request.form.get("comment")
+    else:
+        return render_template("comment.html")
 
 
     #         likes = like(image_id)
