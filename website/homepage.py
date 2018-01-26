@@ -23,10 +23,18 @@ def display():
 def like(image_id):
     """Voegt een like toe aan de foto."""
 
-    # Voegt een like toe aan de database, als de foto geliked is.
-    likes = db.execute("SELECT likes FROM images WHERE image_id=:image_id", image_id=image_id)
-    likes = likes[0]["likes"] + 1
-    db.execute("UPDATE images SET likes=:likes WHERE image_id=:image_id", likes=likes, image_id=image_id)
+    # Checken of de gebruiker niet al eens de foto geliked heeft.
+    users = db.execute("SELECT id FROM likes WHERE image_id=:image_id AND id=:id", image_id=image_id, id=session["user_id"])
+
+    if len(users) == 0:
+        # Gebruiker die de foto geliked heeft in de database zetten.
+        db.execute("INSERT INTO likes (image_id, id, username) VALUES (:image_id, :id, :username)", \
+        image_id=image_id, id=session["user_id"], username=session["username"])
+
+        # Zorgen dat de like counter één omhoog gaat.
+        likes = db.execute("SELECT likes FROM images WHERE image_id=:image_id", image_id=image_id)
+        likes = likes[0]["likes"] + 1
+        db.execute("UPDATE images SET likes=:likes WHERE image_id=:image_id", likes=likes, image_id=image_id)
 
 def commenting(image_id):
     """Voegt reacties oftewel comments toe aan de foto."""
