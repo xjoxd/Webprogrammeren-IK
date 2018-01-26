@@ -45,12 +45,8 @@ def homepage():
     """Geeft de homepagina weer."""
 
     if request.method == "POST":
-        if request.form.get("like"):
-            image_id = request.form.get("like")
-            likes = like(image_id)
-            pictures = display()
-            return render_template("homepage.html", images=pictures, likes=likes)
-        elif request.form.get("comment"):
+        if request.form.get("comment"):
+            session["image_id"] = request.form.get("comment")
             return redirect(url_for("comment"))
         else:
             pictures = display()
@@ -58,6 +54,15 @@ def homepage():
     else:
         pictures = display()
         return render_template("homepage.html", images=pictures)
+
+@app.route("/like", methods=["POST"])
+def like():
+    # return apology("TODO")
+    image_id = request.form.get("like")
+    likes = liking(image_id)
+    pictures = display()
+    return render_template("homepage.html", images=pictures, likes=likes)
+
 
 @app.route("/comment", methods=["GET", "POST"])
 @login_required
@@ -67,8 +72,8 @@ def comment():
         if request.form.get("post"):
             if len(request.form.get("comment")) > 0:
                 comment = request.form.get("comment")
-                # image_id =
-                # commenting(comment, image_id)
+                image_id = session.get("image_id")
+                commenting(comment, image_id)
                 pictures = display()
                 return render_template("homepage.html", images=pictures)
             else:
@@ -77,20 +82,8 @@ def comment():
         elif request.form.get("cancel"):
             pictures = display()
             return render_template("homepage.html", images=pictures)
-
     else:
         return render_template("comment.html")
-
-
-    #         likes = like(image_id)
-    #         pictures = display()
-    #         return render_template("homepage.html", images=pictures)
-    #     else:
-    #         pictures = display()
-    #         return render_template("homepage.html", images=pictures)
-    # else:
-    #     pictures = display()
-    #     return render_template("homepage.html", images=pictures)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

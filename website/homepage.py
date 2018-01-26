@@ -20,7 +20,7 @@ def display():
     pictures = db.execute("SELECT * FROM images ORDER BY timestamp DESC")
     return pictures
 
-def like(image_id):
+def liking(image_id):
     """Voegt een like toe aan de foto."""
 
     # Checken of de gebruiker niet al eens de foto geliked heeft.
@@ -36,7 +36,10 @@ def like(image_id):
         likes = likes[0]["likes"] + 1
         db.execute("UPDATE images SET likes=:likes WHERE image_id=:image_id", likes=likes, image_id=image_id)
 
-def commenting(image_id):
+def commenting(comment, image_id):
     """Voegt reacties oftewel comments toe aan de foto."""
 
-    comments = db.execute("INSERT INTO comments (image_id, comment, id, username") VALUES (:image_id, :comment, :)
+    comments = db.execute("INSERT INTO comments (image_id, comment, id, username) VALUES (:image_id, :comment, :id, :username)", \
+    image_id=image_id, comment=comment, id=session["user_id"], username=session["username"])
+
+    return comments
