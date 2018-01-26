@@ -49,7 +49,7 @@ def homepage():
             image_id = request.form.get("like")
             likes = like(image_id)
             pictures = display()
-            return render_template("homepage.html", images=pictures)
+            return render_template("homepage.html", images=pictures, likes=likes)
         elif request.form.get("comment"):
             return redirect(url_for("comment"))
         else:

@@ -25,7 +25,7 @@ def disc(tag):
     poss = []
 
     for profile in profiles:
-        # Geeft 4 foto's weer van een profiel met de gezogde text.
+        # Geeft 4 foto's weer van een profiel met de gezochte tekst.
         images = db.execute("SELECT path FROM images WHERE id=:id ORDER BY timestamp DESC LIMIT 4", id=profile["id"])
         if images:
             poss.append([images,profile["username"]])
