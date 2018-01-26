@@ -199,17 +199,17 @@ def discover():
             user = item[1]
             images = item[0]
 
-            return render_template("discover_profile.html", images=images)
+            return render_template("discover_profile.html", images=images, user=user)
 
             if request.form.get("like"):
-                #follow()
-                return render_template("discover_profile.html", images=images)
+                follow(user)
+                return render_template("discover_profile.html", images=images, user=user)
 
             elif request.form.get("dislike"):
-                return render_template("discover_profile.html", images=images)
+                return render_template("discover_profile.html", images=images, user=user)
 
             else:
-                return render_template("discover.html", images=images)
+                return render_template("discover.html")
 
     else:
         return render_template("discover.html")
