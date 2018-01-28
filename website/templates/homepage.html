@@ -29,6 +29,7 @@ $('#like{{ image.image_id }}').click(function(){
       $.ajax({
                type: "POST",
                url: "{{ url_for('like') }}",
+               contentType: "application/json",
                data: {'image_id': "{{ image.image_id }}" },
                dataType: "json",
                success: function(response) {

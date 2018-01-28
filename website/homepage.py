@@ -33,6 +33,7 @@ def liking(image_id):
 
         # Zorgen dat de like counter één omhoog gaat.
         likes = db.execute("SELECT likes FROM images WHERE image_id=:image_id", image_id=image_id)
+        print(likes)
         likes = likes[0]["likes"] + 1
         db.execute("UPDATE images SET likes=:likes WHERE image_id=:image_id", likes=likes, image_id=image_id)
 

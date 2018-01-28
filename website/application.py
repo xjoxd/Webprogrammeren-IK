@@ -1,5 +1,5 @@
 from cs50 import SQL
-from flask import Flask, flash, redirect, render_template, request, session, url_for
+from flask import Flask, flash, redirect, render_template, jsonify, request, session, url_for
 from flask_session import Session
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 from passlib.apps import custom_app_context as pwd_context
@@ -57,8 +57,8 @@ def homepage():
 
 @app.route("/like", methods=["POST"])
 def like():
-    # return apology("TODO")
-    image_id = request.form.get("like")
+    image_id = request.get_json("image_id")
+    print(image_id)
     likes = liking(image_id)
     pictures = display()
     return render_template("homepage.html", images=pictures, likes=likes)
