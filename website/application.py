@@ -228,7 +228,7 @@ def gifsearch():
         gifsearch = request.form.get("searchgif")
 
         api_instance = giphy_client.DefaultApi()
-        api_key = 'dc6zaTOxFJmzC'
+        api_key = 'UhMd2yLtaKHk9mugQY0sjdatP3BfTg5o'
         q = gifsearch
         limit = 15
 
