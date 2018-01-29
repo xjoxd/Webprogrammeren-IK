@@ -245,3 +245,6 @@ def gifsearch():
     else:
         return render_template("gifsearch.html")
 
+
+# def following():
+

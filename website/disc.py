@@ -33,6 +33,9 @@ def disc(tag):
     return(poss)
 
 def follow(images):
-    db.execute("INSERT INTO follow (follower_id, follower_username, followed_id, followed_username \
+
+    match = db.execute("INSERT INTO follow (follower_id, follower_username, followed_id, followed_username \
     VALUES (:follower_id, :follower_username, :followed_id, :followed_username)",\
     follower_id=session["user_id"], follower_username=session["username"], )
+
+    return match
