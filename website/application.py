@@ -222,20 +222,25 @@ def discover():
 @app.route("/gifsearch", methods=["GET", "POST"])
 @login_required
 def gifsearch():
+    """De gebruiker kan gifs zoeken."""
+
+    # Als de gebruiker via POST kwam.
     if request.method == "POST":
 
         gifsearch = request.form.get("searchgif")
 
+        # Geeft de API key mee.
         api_instance = giphy_client.DefaultApi()
         api_key = 'UhMd2yLtaKHk9mugQY0sjdatP3BfTg5o'
         q = gifsearch
         limit = 15
 
+        # Returned de gifs.
         try:
             api_response = api_instance.gifs_search_get(api_key, q, limit=limit)
             return render_template("gif.html", api_response=api_response)
         except ApiException as e:
-            return apology ("Sorry, no gifs found")
+            return apology ("No gifs selected")
 
     else:
         return render_template("gifsearch.html")
