@@ -9,7 +9,6 @@
 			  crossorigin="anonymous"></script>
 
 {% block main %}
-    <div id="hello">1</div>
     <form><input type=button value="Refresh" onClick="window.location.reload()"></form>
     {% for image in images %}
         <div>
@@ -18,9 +17,7 @@
                     <button name="comment" class="btnclick btn-sm" value="{{ image.image_id }}"><img src="/static/comment.png" width="50" height="50"></button>
                 </form>
 
-                <input type="button" id="like{{ image.image_id }}" class="btn btn-danger btn-sm" value="{{ image.likes }}"><img src="/static/hart.png" width="50" height="50"></button>
-
-                {{ image.likes }} likes
+                <input type="button" id="like{{ image.image_id }}" class="btn btn-danger btn-sm" value="{{ image.likes }} likes"></button>
         </div>
         <br>
     <script>

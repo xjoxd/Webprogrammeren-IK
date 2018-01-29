@@ -36,6 +36,7 @@ def liking(image_id):
         likes = likes[0]["likes"] + 1
         db.execute("UPDATE images SET likes=:likes WHERE image_id=:image_id", likes=likes, image_id=image_id)
         return likes
+
     return db.execute("SELECT likes FROM images WHERE image_id=:image_id", image_id=image_id)
 
 def commenting(comment, image_id):

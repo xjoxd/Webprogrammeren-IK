@@ -62,7 +62,6 @@ def like():
     likes = liking(image_id)
     return str(likes)
 
-
 @app.route("/comment", methods=["GET", "POST"])
 @login_required
 def comment():
@@ -169,9 +168,17 @@ def settings():
         # De tags worden aangevraagd en in de database gestopt.
         first_tag = request.form.get("tag1")
         second_tag = request.form.get("tag2")
+        third_tag = request.form.get("tag3")
+        fourth_tag = request.form.get("tag4")
+        fifth_tag = request.form.get("tag5")
+        sixth_tag = request.form.get("tag6")
+        seventh_tag = request.form.get("tag7")
+        eigth_tag = request.form.get("tag8")
+        ninth_tag = request.form.get("tag9")
+        tenth_tag = request.form.get("tag10")
 
         # De tags worden aan de gebruiker gekoppeld.
-        tag(first_tag, second_tag)
+        tag(first_tag, second_tag, third_tag, fourth_tag, fifth_tag, sixth_tag, seventh_tag, eigth_tag, ninth_tag, tenth_tag)
 
         # Stuurt de gebruiker naar de homepagina.
         return redirect(url_for("homepage"))
