@@ -5,6 +5,9 @@ from flask_uploads import UploadSet, configure_uploads, IMAGES
 from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
 
+import giphy_client
+from giphy_client.rest import ApiException
+
 from helpers import *
 from log import *
 from reg import *
@@ -216,4 +219,25 @@ def discover():
         return render_template("discover.html")
 
 
+    
+@app.route("/gifsearch", methods=["GET", "POST"])
+@login_required
+def gifsearch():
+    if request.method == "POST":
+
+        gifsearch = request.form.get("searchgif")
+
+        api_instance = giphy_client.DefaultApi()
+        api_key = 'dc6zaTOxFJmzC'
+        q = gifsearch
+        limit = 15
+
+        try:
+            api_response = api_instance.gifs_search_get(api_key, q, limit=limit)
+            return render_template("gif.html", api_response=api_response)
+        except ApiException as e:
+            return apology ("Sorry, no gifs found")
+
+    else:
+        return render_template("gifsearch.html")
 
