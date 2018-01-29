@@ -245,6 +245,10 @@ def gifsearch():
     else:
         return render_template("gifsearch.html")
 
-
-# def following():
-
+#moet nog verbeterd worden..
+def following():
+    if request.method == "POST":
+        giphy()
+    else:
+        #moet nog iets anders i guess
+        return render_template(discover.html)
