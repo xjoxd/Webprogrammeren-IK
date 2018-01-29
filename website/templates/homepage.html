@@ -9,6 +9,7 @@
 			  crossorigin="anonymous"></script>
 
 {% block main %}
+    <div id="hello">1</div>
     <form><input type=button value="Refresh" onClick="window.location.reload()"></form>
     {% for image in images %}
         <div>
@@ -17,29 +18,22 @@
                     <button name="comment" class="btnclick btn-sm" value="{{ image.image_id }}"><img src="/static/comment.png" width="50" height="50"></button>
                 </form>
 
-                <input type="button" id="like{{ image.image_id }}" class="btn btn-danger btn-sm" value="{{ image.image_id }}"><img src="/static/hart.png" width="50" height="50"></button>
+                <input type="button" id="like{{ image.image_id }}" class="btn btn-danger btn-sm" value="{{ image.likes }}"><img src="/static/hart.png" width="50" height="50"></button>
 
                 {{ image.likes }} likes
         </div>
         <br>
-
     <script>
-$('#like{{ image.image_id }}').click(function(){
-    console.log("HI!!!!!!!!!!!!");
-      $.ajax({
-               type: "POST",
-               url: "{{ url_for('like') }}",
-               contentType: "application/json",
-               data: {'image_id': "{{ image.image_id }}" },
-               dataType: "json",
-               success: function(response) {
-                      alert(response);
-            },
-                error: function(rs, e) {
-                       alert(rs.responseText);
-            }
-      });
-})
+$("#like{{ image.image_id }}").click(function(){
+    $.post("{{ url_for('like') }}",
+    {
+        image_id : "{{ image.image_id }}",
+    },
+    function(data, status){
+        $("#like{{ image.image_id }}").prop('value', data);
+    });
+});
+
 </script>
 
     {% endfor %}

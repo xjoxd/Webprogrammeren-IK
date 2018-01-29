@@ -57,11 +57,10 @@ def homepage():
 
 @app.route("/like", methods=["POST"])
 def like():
-    image_id = request.get_json("image_id")
+    image_id = request.form.get("image_id")
     print(image_id)
     likes = liking(image_id)
-    pictures = display()
-    return render_template("homepage.html", images=pictures, likes=likes)
+    return str(likes)
 
 
 @app.route("/comment", methods=["GET", "POST"])
