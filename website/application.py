@@ -61,7 +61,6 @@ def homepage():
 @app.route("/like", methods=["POST"])
 def like():
     image_id = request.form.get("image_id")
-    print(image_id)
     likes = liking(image_id)
     return str(likes)
 
@@ -219,7 +218,7 @@ def discover():
         return render_template("discover.html")
 
 
-    
+
 @app.route("/gifsearch", methods=["GET", "POST"])
 @login_required
 def gifsearch():
