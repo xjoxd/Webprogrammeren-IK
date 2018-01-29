@@ -8,34 +8,34 @@
     <form action="{{ url_for('settings') }}" method="post">
         <fieldset>
             <div class="form-group">
-                <input class="form-control" name="tag1" placeholder="Tag 1" type="text"/>
+                <input class="form-control" name="tag1" placeholder="{{ tags[0][0]["tag1"]}}" type="text"/>
             </div>
             <div class="form-group">
-                <input class="form-control" name="tag2" placeholder="Tag 2" type="text"/>
+                <input class="form-control" name="tag2" placeholder="{{ tags[1][0]["tag2"] }}" type="text"/>
             </div>
             <div class="form-group">
-                <input class="form-control" name="tag3" placeholder="Tag 3" type="text"/>
+                <input class="form-control" name="tag3" placeholder="{{ tags[2][0]["tag3"] }}" type="text"/>
             </div>
             <div class="form-group">
-                <input class="form-control" name="tag4" placeholder="Tag 4" type="text"/>
+                <input class="form-control" name="tag4" placeholder="{{ tags[3][0]["tag4"] }}" type="text"/>
             </div>
             <div class="form-group">
-                <input class="form-control" name="tag5" placeholder="Tag 5" type="text"/>
+                <input class="form-control" name="tag5" placeholder="{{ tags[4][0]["tag5"] }}" type="text"/>
             </div>
             <div class="form-group">
-                <input class="form-control" name="tag6" placeholder="Tag 6" type="text"/>
+                <input class="form-control" name="tag6" placeholder="{{ tags[5][0]["tag6"] }}" type="text"/>
             </div>
             <div class="form-group">
-                <input class="form-control" name="tag7" placeholder="Tag 7" type="text"/>
+                <input class="form-control" name="tag7" placeholder="{{ tags[6][0]["tag7"] }}" type="text"/>
             </div>
             <div class="form-group">
-                <input class="form-control" name="tag8" placeholder="Tag 8" type="text"/>
+                <input class="form-control" name="tag8" placeholder="{{ tags[7][0]["tag8"] }}" type="text"/>
             </div>
             <div class="form-group">
-                <input class="form-control" name="tag9" placeholder="Tag 9" type="text"/>
+                <input class="form-control" name="tag9" placeholder="{{ tags[8][0]["tag9"] }}" type="text"/>
             </div>
             <div class="form-group">
-                <input class="form-control" name="tag10" placeholder="Tag 10" type="text"/>
+                <input class="form-control" name="tag10" placeholder="{{ tags[9][0]["tag10"] }}" type="text"/>
             </div>
             <div class="form-group">
                 <button class="btn btn-default" type="submit">Submit</button>

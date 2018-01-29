@@ -178,10 +178,12 @@ def settings():
         tenth_tag = request.form.get("tag10")
 
         # De tags worden aan de gebruiker gekoppeld.
-        tag(first_tag, second_tag, third_tag, fourth_tag, fifth_tag, sixth_tag, seventh_tag, eigth_tag, ninth_tag, tenth_tag)
+        tags = tag(first_tag, second_tag, third_tag, fourth_tag, fifth_tag, sixth_tag, seventh_tag, eigth_tag, ninth_tag, tenth_tag)
+        print(tags)
+        print(tags[0][0]["tag1"])
 
         # Stuurt de gebruiker naar de homepagina.
-        return redirect(url_for("homepage"))
+        return render_template("settings.html", tags=tags)
 
     else:
         return render_template("settings.html")
