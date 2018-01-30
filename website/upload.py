@@ -31,3 +31,21 @@ def upload_file(filename, description):
         id=session["user_id"], username=username[0]["username"], path=filename, likes=0, description=description)
 
     return photo
+
+def giphy():
+    # Selecteert de username vanuit de database.
+    username = db.execute("SELECT username FROM users WHERE id=:id", id=session["user_id"])
+
+    # Zet alleen de foto in de database en zet disctiption op None.
+    if not description:
+        photo = db.execute("INSERT INTO images (id, username, path, likes, description) \
+        VALUES (:id, :username, :path, :likes, :description)", \
+        id=session["user_id"], username=username[0]["username"], path=filename, likes=0, description=None)
+
+    # Zet de foto en de description in de database.
+    else:
+        photo = db.execute("INSERT INTO images (id, username, path, likes, description) \
+        VALUES (:id, :username, :path, :likes, :description)", \
+        id=session["user_id"], username=username[0]["username"], path=filename, likes=0, description=description)
+
+    return gifs

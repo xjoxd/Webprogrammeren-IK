@@ -8,11 +8,22 @@
 
     <form method=POST enctype=multipart/form-data action="{{ url_for("post") }}">
         <label for="txtPost">Description</label>
-            <textarea class="form-control" id="txtPost" name="description"></textarea>
+            <textarea class="form-control" id="txtPost" name="description" maxlength="1000"></textarea>
         <input type=file name=photo>
         <div class = "form-group">
             <button class = "btn btn-default" type="submit" > Post</button>
         </div>
+    </form>
+    <form action="{{ url_for('gifsearch') }}" method="post">
+        <fieldset>
+            </div>
+            <div class="form-group">
+                <input class="form-control" name="searchgif" placeholder="Search for a gif" type="text"/>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-default" type="submit">Search</button>
+            </div>
+        </fieldset>
     </form>
 
 {% endblock %}

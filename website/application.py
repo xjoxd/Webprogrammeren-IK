@@ -1,9 +1,12 @@
 from cs50 import SQL
-from flask import Flask, flash, redirect, render_template, request, session, url_for
+from flask import Flask, flash, redirect, render_template, jsonify, request, session, url_for
 from flask_session import Session
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
+
+import giphy_client
+from giphy_client.rest import ApiException
 
 from helpers import *
 from log import *
@@ -45,12 +48,8 @@ def homepage():
     """Geeft de homepagina weer."""
 
     if request.method == "POST":
-        if request.form.get("like"):
-            image_id = request.form.get("like")
-            likes = like(image_id)
-            pictures = display()
-            return render_template("homepage.html", images=pictures, likes=likes)
-        elif request.form.get("comment"):
+        if request.form.get("comment"):
+            session["image_id"] = request.form.get("comment")
             return redirect(url_for("comment"))
         else:
             pictures = display()
@@ -59,25 +58,32 @@ def homepage():
         pictures = display()
         return render_template("homepage.html", images=pictures)
 
+@app.route("/like", methods=["POST"])
+def like():
+    image_id = request.form.get("image_id")
+    likes = liking(image_id)
+    return str(likes)
+
 @app.route("/comment", methods=["GET", "POST"])
 @login_required
 def comment():
-    return apology("TODO")
+    # return apology("TODO")
     if request.method == "POST":
-        if request.form.get("comment"):
-
-            image_id = request.form.get("comment")
-
-
-    #         likes = like(image_id)
-    #         pictures = display()
-    #         return render_template("homepage.html", images=pictures)
-    #     else:
-    #         pictures = display()
-    #         return render_template("homepage.html", images=pictures)
-    # else:
-    #     pictures = display()
-    #     return render_template("homepage.html", images=pictures)
+        if request.form.get("post"):
+            if len(request.form.get("comment")) > 0:
+                comment = request.form.get("comment")
+                image_id = session.get("image_id")
+                commenting(comment, image_id)
+                pictures = display()
+                return render_template("homepage.html", images=pictures)
+            else:
+                pictures = display()
+                return render_template("homepage.html", images=pictures)
+        elif request.form.get("cancel"):
+            pictures = display()
+            return render_template("homepage.html", images=pictures)
+    else:
+        return render_template("comment.html")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -164,12 +170,22 @@ def settings():
         # De tags worden aangevraagd en in de database gestopt.
         first_tag = request.form.get("tag1")
         second_tag = request.form.get("tag2")
+        third_tag = request.form.get("tag3")
+        fourth_tag = request.form.get("tag4")
+        fifth_tag = request.form.get("tag5")
+        sixth_tag = request.form.get("tag6")
+        seventh_tag = request.form.get("tag7")
+        eigth_tag = request.form.get("tag8")
+        ninth_tag = request.form.get("tag9")
+        tenth_tag = request.form.get("tag10")
 
         # De tags worden aan de gebruiker gekoppeld.
-        tag(first_tag, second_tag)
+        tags = tag(first_tag, second_tag, third_tag, fourth_tag, fifth_tag, sixth_tag, seventh_tag, eigth_tag, ninth_tag, tenth_tag)
+        print(tags)
+        print(tags[0][0]["tag1"])
 
         # Stuurt de gebruiker naar de homepagina.
-        return redirect(url_for("homepage"))
+        return render_template("settings.html", tags=tags)
 
     else:
         return render_template("settings.html")
@@ -203,3 +219,36 @@ def discover():
 
 
 
+@app.route("/gifsearch", methods=["GET", "POST"])
+@login_required
+def gifsearch():
+    """De gebruiker kan gifs zoeken."""
+
+    # Als de gebruiker via POST kwam.
+    if request.method == "POST":
+
+        gifsearch = request.form.get("searchgif")
+
+        # Geeft de API key mee.
+        api_instance = giphy_client.DefaultApi()
+        api_key = 'UhMd2yLtaKHk9mugQY0sjdatP3BfTg5o'
+        q = gifsearch
+        limit = 15
+
+        # Returned de gifs.
+        try:
+            api_response = api_instance.gifs_search_get(api_key, q, limit=limit)
+            return render_template("gif.html", api_response=api_response)
+        except ApiException as e:
+            return apology ("No gifs selected")
+
+    else:
+        return render_template("gifsearch.html")
+
+#moet nog verbeterd worden..
+def following():
+    if request.method == "POST":
+        giphy()
+    else:
+        #moet nog iets anders i guess
+        return render_template(discover.html)

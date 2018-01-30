@@ -16,7 +16,9 @@ db = SQL("sqlite:///website.db")
 def disc(tag):
     """."""
 
-    profiles = db.execute("SELECT * FROM users WHERE tag1=:tag1 OR tag2=:tag2", tag1=tag, tag2=tag)
+    profiles = db.execute("SELECT * FROM users WHERE tag1=:tag1 OR tag2=:tag2 OR tag3=:tag3 OR tag4=:tag4 \
+    OR tag5=:tag5 OR tag6=:tag6 OR tag7=:tag7 OR tag8=:tag8 OR tag9=:tag9 OR tag10=tag10 \
+    ", tag1=tag, tag2=tag, tag3=tag, tag4=tag, tag5=tag, tag6=tag, tag7=tag, tag8=tag, tag9=tag, tag10=taggit mer)
 
     # Returned excuses als er geen profielen met de gezogde tags zijn.
     if not profiles:
@@ -33,6 +35,9 @@ def disc(tag):
     return(poss)
 
 def follow(images):
-    db.execute("INSERT INTO follow (follower_id, follower_username, followed_id, followed_username \
+
+    match = db.execute("INSERT INTO follow (follower_id, follower_username, followed_id, followed_username \
     VALUES (:follower_id, :follower_username, :followed_id, :followed_username)",\
     follower_id=session["user_id"], follower_username=session["username"], )
+
+    return match
