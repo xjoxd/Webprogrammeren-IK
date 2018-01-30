@@ -9,6 +9,8 @@
 	crossorigin="anonymous">
 </script>
 
+<script src="js/jquery.endless-scroll.js"></script>
+
 {% block main %}
     <form><input type=button value="Refresh" onClick="window.location.reload()"></form>
     {% for image in images %}
@@ -22,6 +24,20 @@
         </div>
         <br>
     <script>
+        <ul id="images">
+            <li>
+                <br> {{ image.username}} </br>
+                <img src="/static/img/{{ image.path }}" alt="">
+                <br>{{ image.description }}</br>
+                </li>
+                <form action="{{ url_for('homepage') }}" method="post" onsubmit="return value">
+                    <button name="comment" class="btnclick btn-sm" value="{{ image.image_id }}"><img src="/static/comment.png" width="50" height="50"></button>
+                </form>
+                <input type="button" id="like{{ image.image_id }}" class="btn btn-danger btn-sm" value="{{ image.likes }}"></button>
+        </ul>
+
+
+<script>
 $("#like{{ image.image_id }}").click(function(){
     $.post("{{ url_for('like') }}",
     {
@@ -32,6 +48,18 @@ $("#like{{ image.image_id }}").click(function(){
     });
 });
 
+</script>
+
+<script>
+$(document).ready(function() {
+    $(document).endlessScroll({
+        inflowPixels: 300,
+        callback: function() {
+      var $img = $('#images li:nth-last-child(5)').clone();
+      $('#images').append($img);
+        }
+    });
+});
 </script>
 
     {% endfor %}
