@@ -260,3 +260,4 @@ def storegif():
         filename = request.args.get('url')
         giphy(filename)
         return redirect(url_for("post"))
+
