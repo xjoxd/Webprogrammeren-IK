@@ -52,11 +52,13 @@ def homepage():
             session["image_id"] = request.form.get("comment")
             return redirect(url_for("comment"))
         else:
+            get_comment = get_comments()
             pictures = display()
-            return render_template("homepage.html", images=pictures)
+            return render_template("homepage.html", images=pictures, comments=get_comment)
     else:
+        get_comment = get_comments()
         pictures = display()
-        return render_template("homepage.html", images=pictures)
+        return render_template("homepage.html", images=pictures, comments=get_comment)
 
 @app.route("/like", methods=["POST"])
 def like():
