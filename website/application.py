@@ -232,9 +232,9 @@ def gifsearch():
 
         # Geeft de API key mee.
         api_instance = giphy_client.DefaultApi()
-        api_key = 'UhMd2yLtaKHk9mugQY0sjdatP3BfTg5o'
         q = gifsearch
         limit = 15
+        api_key = 'UhMd2yLtaKHk9mugQY0sjdatP3BfTg5o'
 
         # Returned de gifs.
         try:
@@ -244,7 +244,7 @@ def gifsearch():
             return apology ("No gifs selected")
 
     else:
-        return render_template("gif.html")
+        return render_template("post.html")
 
 #moet nog verbeterd worden..
 def following():
