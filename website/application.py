@@ -251,10 +251,12 @@ def gifsearch():
     else:
         return render_template("post.html")
 
-#moet nog verbeterd worden..
-def following():
+@app.route("/storegif", methods=["GET", "POST"])
+@login_required
+def storegif():
     if request.method == "POST":
-        giphy()
+        return redirect(url_for("post"))
     else:
-        #moet nog iets anders i guess
-        return render_template(discover.html)
+        filename = request.args.get('url')
+        giphy(filename)
+        return redirect(url_for("post"))
