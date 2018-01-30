@@ -1,9 +1,12 @@
 {% extends "layout.html" %}
-
+<form>
 {% block main %}
     {% for gif in range(15) %}
-        <a href="post">
-          <img src="{{ api_response['data'][gif]['images']['downsized_medium']['url'] }}" alt="hello" style="width:200px;height:200px;border:0">
+        <a href="/storegif?url='{{ api_response['data'][gif]['images']['downsized_medium']['url'] }}'">
+
+          <img src="{{ api_response['data'][gif]['images']['downsized_medium']['url'] }}" alt="hello" style="width:200px;height:200px;border:0" type="submit">
+
         </a>
     {% endfor %}
 {% endblock %}
+</form>
