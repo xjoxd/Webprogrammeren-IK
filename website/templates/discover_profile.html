@@ -7,13 +7,14 @@
 {% block main %}
 
     <div>
-    {% for image in images %}
-        <a><img src="/static/img/{{ image.path }}" width="500" height="500"></img></a>
+    {% for picture in pictures %}
+        <a><img src="/static/img/{{ picture }}" width="500" height="500"></img></a>
     {% endfor %}
     </div>
     <div>
-        <h1>{{user}}</h1>
+        <h1>{{ username }}</h1>
         <form action="{{ url_for('discover') }}" method="post" onsubmit="return value">
+            <input name="like" type="hidden" value="1">
             <button name="like" class="press" ><img src="/static/hart.png" width="50" height="50"></button>
         </form>
         <form action="{{ url_for('discover') }}" method="post" onsubmit="return value">

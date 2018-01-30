@@ -190,34 +190,40 @@ def settings():
     else:
         return render_template("settings.html")
 
-@app.route("/discover", methods=["GET", "POST"])
+
+@app.route("/search", methods=["GET", "POST"])
 @login_required
-def discover():
+def search():
     if request.method == "POST":
-        tag = request.form.get("tag")
-
-        returns = disc(tag)
-
-        for item in returns:
-            user = item[1]
-            images = item[0]
-            profile_id = item[2]
-
-
-            if request.form.get("like"):
-                follow(profile_id)
-                return render_template("discover_profile.html", images=images, user=user)
-
-            elif request.form.get("dislike"):
-                return render_template("discover_profile.html", images=images, user=user)
-
-            else:
-                return render_template("discover.html")
-
+        session["tag"] = request.form.get("tag")
+        return redirect(url_for("discover"))
     else:
         return render_template("discover.html")
 
 
+@app.route("/discover", methods=["GET", "POST"])
+@login_required
+def discover():
+
+    # Zoeken naar profielen met de door de gebruiker ingevulde tag.
+    profile = disc(session["tag"])
+    print(profile)
+
+    if request.method == "POST":
+        if request.form.get("like"):
+            follow(profile)
+
+        status_update(profile)
+
+        return redirect(url_for("discover"))
+
+    else:
+        if profile == "empty":
+            return apology("no more matches available")
+        else:
+            imges = pics(profile)
+            username = usernamee(profile)
+            return render_template("discover_profile.html", pictures=imges, username=username)
 
 @app.route("/gifsearch", methods=["GET", "POST"])
 @login_required

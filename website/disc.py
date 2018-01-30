@@ -9,40 +9,71 @@ from helpers import *
 from log import *
 from reg import *
 from upload import *
+import random
 
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///website.db")
 
 def disc(tag):
     """."""
+    profiles = db.execute("SELECT id FROM users WHERE tag1=:tag1 OR tag2=:tag2 OR tag3=:tag3 OR tag4=:tag4 \
+    OR tag5=:tag5 OR tag6=:tag6 OR tag7=:tag7 OR tag8=:tag8 OR tag9=:tag9 OR tag10=:tag10", \
+    tag1=tag, tag2=tag, tag3=tag, tag4=tag, tag5=tag, tag6=tag, tag7=tag, tag8=tag, tag9=tag, tag10=tag)
 
-    profiles = db.execute("SELECT * FROM users WHERE tag1=:tag1 OR tag2=:tag2 OR tag3=:tag3 OR tag4=:tag4 \
-    OR tag5=:tag5 OR tag6=:tag6 OR tag7=:tag7 OR tag8=:tag8 OR tag9=:tag9 OR tag10=:tag10 \
-    ", tag1=tag, tag2=tag, tag3=tag, tag4=tag, tag5=tag, tag6=tag, tag7=tag, tag8=tag, tag9=tag, tag10=tag)
+    profiles_id = set(profile["id"] for profile in profiles)
 
-    # Returned excuses als er geen profielen met de gezogde tags zijn.
-    if not profiles:
-        return apology("There are no users with this tag")
+    checked = db.execute("SELECT other_id FROM status WHERE id=:id", id=session["user_id"])
+    checked_set = set(check["other_id"] for check in checked)
 
-    poss = []
+    show_profile = profiles_id - checked_set
+    show_profiles = [id for id in show_profile if id != session["user_id"]]
 
-    for profile in profiles:
-        # Geeft 4 foto's weer van een profiel met de gezochte tekst.
-        images = db.execute("SELECT path FROM images WHERE id=:id ORDER BY timestamp DESC LIMIT 4", id=profile["id"])
-        if images:
-            poss.append([images,profile["username"], profile["id"]])
+    if show_profiles != []:
+        return random.choice(show_profiles)
+    else:
+        return "empty"
 
-    return(poss)
+def status_update(profile):
+    db.execute("INSERT INTO status (id, other_id) VALUES (:id, :other_id)", id=session["user_id"], other_id=profile)
 
-def follow(followed_id):
+def follow(profile):
 
-    username = db.execute("SELECT username FROM users WHERE id=:followed_id", followed_id = followed_id)
+    username = db.execute("SELECT username FROM users WHERE id=:followed_id", followed_id=profile)
 
-    print(followed_id)
     print(username)
 
-    match = db.execute("INSERT INTO follow (follower_id, follower_username, followed_id, followed_username \
+    db.execute("INSERT INTO follow (follower_id, follower_username, followed_id, followed_username) \
     VALUES (:follower_id, :follower_username, :followed_id, :followed_username)",\
-    follower_id=session["user_id"], follower_username=session["username"], followed_id=followed_id, followed_username=username)
+    follower_id=session["user_id"], follower_username=session["username"], followed_id=profile, followed_username=username[0]["username"])
 
-    return match
+
+
+def pics(profile):
+    """Returnt foto's van de gebruiker."""
+
+    pictures = db.execute("SELECT path FROM images WHERE id=:id ORDER BY timestamp DESC LIMIT 4", id=profile)
+    return pictures
+
+def usernamee(profile):
+    """Returnt username."""
+
+    username = db.execute("SELECT username FROM users WHERE id=:id", id=profile)
+    return username[0]["username"]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
