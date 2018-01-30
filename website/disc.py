@@ -34,7 +34,7 @@ def disc(tag):
         return "empty"
 
 def status_update(profile):
-    db.execute("INSERT INTO status (id, other_id) VALUES (:id, :other_id)", id=session["user_id"], other_id=profile)
+    return db.execute("INSERT INTO status (id, other_id) VALUES (:id, :other_id)", id=session["user_id"], other_id=profile)
 
 def follow(profile):
 
