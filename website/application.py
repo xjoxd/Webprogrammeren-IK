@@ -203,7 +203,6 @@ def discover():
             images = item[0]
             profile_id = item[2]
 
-            return render_template("discover_profile.html", images=images, user=user)
 
             if request.form.get("like"):
                 follow(profile_id)

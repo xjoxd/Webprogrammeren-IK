@@ -4,20 +4,21 @@
 {% endblock %}
 
 <script
-			  src="https://code.jquery.com/jquery-3.3.1.min.js"
-			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-			  crossorigin="anonymous"></script>
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	crossorigin="anonymous">
+</script>
 
 {% block main %}
     <form><input type=button value="Refresh" onClick="window.location.reload()"></form>
     {% for image in images %}
-        <div>
-                <img src="/static/img/{{ image.path }}" width="500" height="500"> <br>{{ image.description }}</br> <br> {{ image.username}} </br>
-                <form action="{{ url_for('homepage') }}" method="post" onsubmit="return value">
-                    <button name="comment" class="btnclick btn-sm" value="{{ image.image_id }}"><img src="/static/comment.png" width="50" height="50"></button>
-                </form>
+        <div id="wrapper">
+            <img src="/static/img/{{ image.path }}" width="500" height="500"> <br>{{ image.description }}</br> <br> {{ image.username}} </br>
+            <form action="{{ url_for('homepage') }}" method="post" onsubmit="return value">
+                <button name="comment" class="btnclick btn-sm" value="{{ image.image_id }}"><img src="/static/comment.png" width="50" height="50"></button>
+            </form>
 
-                <input type="button" id="like{{ image.image_id }}" class="btn btn-danger btn-sm" value="{{ image.likes }}"></button>
+            <input type="button" id="like{{ image.image_id }}" class="btn btn-danger btn-sm" value="{{ image.likes }}"></button>
         </div>
         <br>
     <script>
