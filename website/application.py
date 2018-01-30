@@ -201,11 +201,12 @@ def discover():
         for item in returns:
             user = item[1]
             images = item[0]
+            profile_id = item[2]
 
             return render_template("discover_profile.html", images=images, user=user)
 
             if request.form.get("like"):
-                follow(user)
+                follow(profile_id)
                 return render_template("discover_profile.html", images=images, user=user)
 
             elif request.form.get("dislike"):
@@ -243,7 +244,7 @@ def gifsearch():
             return apology ("No gifs selected")
 
     else:
-        return render_template("gifsearch.html")
+        return render_template("gif.html")
 
 #moet nog verbeterd worden..
 def following():
