@@ -20,6 +20,12 @@ def display():
     pictures = db.execute("SELECT * FROM images ORDER BY timestamp DESC")
     return pictures
 
+def get_comments():
+    """Haalt de comments op."""
+
+    get_comment = db.execute("SELECT * FROM comments ORDER BY timestamp DESC")
+    return get_comment
+
 def liking(image_id):
     """Voegt een like toe aan de foto."""
 
