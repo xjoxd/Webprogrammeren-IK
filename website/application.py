@@ -10,8 +10,6 @@ import model
 import giphy_client
 from giphy_client.rest import ApiException
 
-
-
 # configure application
 app = Flask(__name__)
 
@@ -177,11 +175,9 @@ def settings():
         # De tags worden aan de gebruiker gekoppeld.
         tags = model.tag(first_tag, second_tag, third_tag, fourth_tag, fifth_tag, sixth_tag, seventh_tag, \
         eigth_tag, ninth_tag, tenth_tag)
-        print(tags)
-        print(tags[0][0]["tag1"])
 
         # Stuurt de gebruiker naar de homepagina.
-        return render_template("settings.html", tags=tags)
+        return render_template("settings.html")
 
     else:
         return render_template("settings.html")
@@ -215,7 +211,7 @@ def discover():
 
     else:
         if profile == "empty":
-            return apology("no more matches available")
+            return apology("No more matches available.")
         else:
             imges = model.pics(profile)
             username = model.username(profile)
