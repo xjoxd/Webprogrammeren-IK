@@ -27,6 +27,7 @@
                 {% endif %}
             {% endif %}
 
+        <br><br>
         <input type="button" id="like{{ image.image_id }}" class="btn btn-danger btn-sm" value="{{ image.likes }}"> likes </button>
         <form action="{{ url_for('homepage') }}" method="post" onsubmit="return value">
             <button name="comment" class="btn btn-primary btn-sm" value="{{ image.image_id }}"> Comment </button>
