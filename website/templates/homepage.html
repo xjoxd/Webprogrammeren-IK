@@ -11,29 +11,6 @@
 
 {% block main %}
 <center>
-
-    <style>
-    body{
-        background-color: #315ea5;
-    }
-
-    #wrapper{
-        background-color: #e8ebef;
-        border: solid 1px #eee;
-        border-radius:10px; /* round corners */
-        box-shadow:0px 3px 5px 5px #000; /* add shadow */
-    }
-
-    #button{
-
-        float:right;
-        margin-right:5px;
-    }
-
-    </style>
-
-
-
     <span style="font-size: 35px" class="glyphicon glyphicon-refresh " onClick="history.go(0)" ></span>
     {% for image in images %}
         <div id="wrapper">
@@ -83,6 +60,3 @@ $("#like{{ image.image_id }}").click(function(){
     {% endfor %}
 </center>
 {% endblock %}
-
-
-
