@@ -261,8 +261,8 @@ def storegif():
         filename = request.args.get('url')
         model.giphy(filename)
         return redirect(url_for("post"))
- 
+
 @app.route("/getgif/<gifje>", methods=["GET"])
 def getgif(gifje):
-return redirect("https://media1.giphy.com/media/" + gifje+"/giphy.gif")
+    return redirect("https://media1.giphy.com/media/" + gifje+"/giphy.gif")
 
