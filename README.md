@@ -1,5 +1,6 @@
-# Poject
+# Project
 *Quintin Raemaekers, Mark Muller en Jo Schreurs*
+
 
 ## Inloggen en Registreren
 ### Models
