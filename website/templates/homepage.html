@@ -12,6 +12,28 @@
 <script src="js/jquery.endless-scroll.js"></script>
 
 {% block main %}
+
+    <style>
+    body{
+        background-color: #28262C;
+    }
+
+    #wrapper{
+        background-color: white;
+        border: solid 1px #eee;
+        border-radius:10px; /* round corners */
+        box-shadow:0px 3px 5px 5px #000; /* add shadow */
+    }
+
+    #button{
+
+        float:left;
+        margin-right:5px;
+    }
+
+    </style>
+
+
     <form><input type=button value="Refresh" onClick="window.location.reload()"></form>
     {% for image in images %}
         <div id="wrapper">
