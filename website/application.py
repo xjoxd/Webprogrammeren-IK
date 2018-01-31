@@ -60,8 +60,13 @@ def homepage():
 
 @app.route("/like", methods=["POST"])
 def like():
+    """Zorgt dat er geliked kan worden."""
+
+    # Foto liken als er op like wordt geklikt.
     image_id = request.form.get("image_id")
     likes = model.like(image_id)
+
+    # Het aantal likes returnen.
     return str(likes)
 
 
@@ -205,7 +210,7 @@ def settings():
         eigth_tag, ninth_tag, tenth_tag)
 
         # Stuurt de gebruiker naar de homepagina.
-        return render_template("settings.html")
+        return redirect(url_for("homepage"))
 
     # Als de gebruiker via GET de route bereikt heeft.
     else:
@@ -250,7 +255,7 @@ def discover():
     # Als de gebruiker via GET de route bereikt heeft.
     else:
         if profile == "empty":
-            return apology("No more matches available.")
+            return apology("No matches available.")
         else:
             imges = model.pics(profile)
             username = model.username(profile)
