@@ -20,9 +20,11 @@
             {% else %}
                 <h2 style="font-family: 'Century Gothic'" color="blue"> {{ image.username}}  </h2>
                 <img src="/static/img/{{ image.path }}" width="500" height="500">
-                <div style="width: 300px; overflow: scroll; height: 100px;">
-                    <p>{{ image.description }}</p>
-                </div>
+                {% if image.description != None %}
+                    <div style="width: 300px; overflow: scroll; height: 100px;">
+                        <p>{{ image.description }}</p>
+                    </div>
+                {% endif %}
             {% endif %}
 
         <input type="button" id="like{{ image.image_id }}" class="btn btn-danger btn-sm" value="{{ image.likes }}"> likes </button>
