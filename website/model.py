@@ -41,13 +41,12 @@ def display():
     """Geeft foto's weer."""
 
     # Uit de database halen wie door de gebruiker gevolgd worden.
-    user_follow = db.execute("SELECT followed_id FROM follow WHERE follower_id=:follower_id", follower_id=session["user_id"])
-    print(user_follow)
+    picture_info = db.execute("SELECT follow.followed_id, images.* FROM follow INNER JOIN images \
+    ON follow.followed_id=images.id WHERE follow.follower_id=:follower_id ORDER BY images.timestamp DESC",\
+    follower_id=session["user_id"])
+    print(picture_info)
 
-    # Geeft de meest recentste foto's weer die opgehaald zijn vanuit de database.
-    # pictures = db.execute("SELECT * FROM images WHERE id=:id ORDER BY timestamp DESC", id=user_follow)
-    pictures = db.execute("SELECT * FROM images ORDER BY timestamp DESC")
-    return pictures
+    return user_follow
 
 def get_comments():
     """Haalt de comments op."""
