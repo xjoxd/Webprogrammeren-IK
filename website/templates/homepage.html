@@ -16,7 +16,6 @@
     {% for image in images %}
         <div id="wrapper">
             {% if image.path.replace("'" , "")[:5] == 'https'  %}
-                hiero
                 <img src="{{ url_for('getgif', gifje=image.path.split('/')[4])   }}" width="500" height="500"> <br>{{ image.description }}</br> <br> {{ image.username}} </br>
             {% else %}
                 <img src="/static/img/{{ image.path }}" width="500" height="500"> <br>{{ image.description }}</br> <br> {{ image.username}} </br>
