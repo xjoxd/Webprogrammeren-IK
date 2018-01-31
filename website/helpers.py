@@ -9,6 +9,8 @@ from flask import redirect, render_template, request, session
 from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
 
+import os
+
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///website.db")
 
