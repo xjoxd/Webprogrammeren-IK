@@ -45,7 +45,6 @@ def display():
     picture_info = db.execute("SELECT follow.followed_id, images.* FROM follow INNER JOIN images \
     ON follow.followed_id=images.id WHERE follow.follower_id=:follower_id ORDER BY images.timestamp DESC",\
     follower_id=session["user_id"])
-    print(picture_info)
 
     return picture_info
 
@@ -206,9 +205,6 @@ def tag(first_tag, second_tag, third_tag, fourth_tag, fifth_tag, sixth_tag, seve
 
         tag1 = db.execute("SELECT tag1 FROM users WHERE id=:ID", ID=session["user_id"])
 
-    else:
-        tag1 = db.execute("SELECT tag1 FROM users WHERE id=:ID", ID=session["user_id"])
-
     if len(second_tag) > 0:
 
         # Stopt de tag in de database als er nog geen tag2 bestaat.
@@ -219,9 +215,6 @@ def tag(first_tag, second_tag, third_tag, fourth_tag, fifth_tag, sixth_tag, seve
         else:
             db.execute("UPDATE users SET tag2=:tag WHERE id=:ID;", ID=session["user_id"], tag=second_tag)
 
-        tag2 = db.execute("SELECT tag2 FROM users WHERE id=:ID", ID=session["user_id"])
-
-    else:
         tag2 = db.execute("SELECT tag2 FROM users WHERE id=:ID", ID=session["user_id"])
 
     if len(third_tag) > 0:
@@ -236,9 +229,6 @@ def tag(first_tag, second_tag, third_tag, fourth_tag, fifth_tag, sixth_tag, seve
 
         tag3 = db.execute("SELECT tag3 FROM users WHERE id=:ID", ID=session["user_id"])
 
-    else:
-        tag3 = db.execute("SELECT tag3 FROM users WHERE id=:ID", ID=session["user_id"])
-
     if len(fourth_tag) > 0:
 
         # Stopt de tag in de database als er nog geen tag2 bestaat.
@@ -249,9 +239,6 @@ def tag(first_tag, second_tag, third_tag, fourth_tag, fifth_tag, sixth_tag, seve
         else:
             db.execute("UPDATE users SET tag4=:tag WHERE id=:ID;", ID=session["user_id"], tag=fourth_tag)
 
-        tag4 = db.execute("SELECT tag4 FROM users WHERE id=:ID", ID=session["user_id"])
-
-    else:
         tag4 = db.execute("SELECT tag4 FROM users WHERE id=:ID", ID=session["user_id"])
 
     if len(fifth_tag) > 0:
@@ -266,9 +253,6 @@ def tag(first_tag, second_tag, third_tag, fourth_tag, fifth_tag, sixth_tag, seve
 
         tag5 = db.execute("SELECT tag5 FROM users WHERE id=:ID", ID=session["user_id"])
 
-    else:
-        tag5 = db.execute("SELECT tag5 FROM users WHERE id=:ID", ID=session["user_id"])
-
     if len(sixth_tag) > 0:
 
         # Stopt de tag in de database als er nog geen tag2 bestaat.
@@ -279,9 +263,6 @@ def tag(first_tag, second_tag, third_tag, fourth_tag, fifth_tag, sixth_tag, seve
         else:
             db.execute("UPDATE users SET tag6=:tag WHERE id=:ID;", ID=session["user_id"], tag=sixth_tag)
 
-        tag6 = db.execute("SELECT tag6 FROM users WHERE id=:ID", ID=session["user_id"])
-
-    else:
         tag6 = db.execute("SELECT tag6 FROM users WHERE id=:ID", ID=session["user_id"])
 
     if len(seventh_tag) > 0:
@@ -296,9 +277,6 @@ def tag(first_tag, second_tag, third_tag, fourth_tag, fifth_tag, sixth_tag, seve
 
         tag7 = db.execute("SELECT tag7 FROM users WHERE id=:ID", ID=session["user_id"])
 
-    else:
-        tag7 = db.execute("SELECT tag7 FROM users WHERE id=:ID", ID=session["user_id"])
-
     if len(eigth_tag) > 0:
 
         # Stopt de tag in de database als er nog geen tag2 bestaat.
@@ -309,9 +287,6 @@ def tag(first_tag, second_tag, third_tag, fourth_tag, fifth_tag, sixth_tag, seve
         else:
             db.execute("UPDATE users SET tag8=:tag WHERE id=:ID;", ID=session["user_id"], tag=eigth_tag)
 
-        tag8 = db.execute("SELECT tag8 FROM users WHERE id=:ID", ID=session["user_id"])
-
-    else:
         tag8 = db.execute("SELECT tag8 FROM users WHERE id=:ID", ID=session["user_id"])
 
     if len(ninth_tag) > 0:
@@ -326,9 +301,6 @@ def tag(first_tag, second_tag, third_tag, fourth_tag, fifth_tag, sixth_tag, seve
 
         tag9 = db.execute("SELECT tag9 FROM users WHERE id=:ID", ID=session["user_id"])
 
-    else:
-        tag9 = db.execute("SELECT tag9 FROM users WHERE id=:ID", ID=session["user_id"])
-
     if len(tenth_tag) > 0:
 
         # Stopt de tag in de database als er nog geen tag1 bestaat.
@@ -340,12 +312,6 @@ def tag(first_tag, second_tag, third_tag, fourth_tag, fifth_tag, sixth_tag, seve
             db.execute("UPDATE users SET tag10=:tag WHERE id=:ID;", ID=session["user_id"], tag=tenth_tag)
 
         tag10 = db.execute("SELECT tag10 FROM users WHERE id=:ID", ID=session["user_id"])
-
-    else:
-        tag10 = db.execute("SELECT tag10 FROM users WHERE id=:ID", ID=session["user_id"])
-
-
-    return tag1, tag2, tag3, tag4, tag5, tag6, tag7, tag8, tag9, tag10
 
 def key():
     if not os.environ.get("API_KEY"):
