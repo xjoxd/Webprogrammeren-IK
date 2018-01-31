@@ -6,13 +6,6 @@
 
 {% block main %}
 
-    <style>
-    body{
-        background: url("https://i.imgur.com/wQR7f5y.jpg") no-repeat;
-        background-size: 100%;
-    }
-    </style>
-
     <form method="POST" enctype=multipart/form-data action="{{ url_for("post") }}">
         <label for="txtPost">Description</label>
             <textarea class="form-control" name="description" maxlength="1000"></textarea>
