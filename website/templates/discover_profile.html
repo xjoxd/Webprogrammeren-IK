@@ -6,6 +6,14 @@
 
 {% block main %}
 
+    <style>
+    body{
+        background: url("https://i.imgur.com/SoCp2LB.jpg") no-repeat;
+        background-size: 100%;
+    }
+    </style>
+
+
     <div>
     {% for picture in pictures %}
         <a><img src="/static/img/{{ picture }}" width="500" height="500"></img></a>

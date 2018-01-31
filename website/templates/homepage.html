@@ -12,13 +12,44 @@
 <script src="js/jquery.endless-scroll.js"></script>
 
 {% block main %}
+
+    <style>
+    body{
+        background-color: #28262C;
+    }
+
+    #wrapper{
+        background-color: white;
+        border: solid 1px #eee;
+        border-radius:10px; /* round corners */
+        box-shadow:0px 3px 5px 5px #000; /* add shadow */
+    }
+
+    #button{
+
+        float:left;
+        margin-right:5px;
+    }
+
+    </style>
+
+
     <form><input type=button value="Refresh" onClick="window.location.reload()"></form>
     {% for image in images %}
         <div id="wrapper">
             <img src="/static/img/{{ image.path }}" width="500" height="500"> <br>{{ image.description }}</br> <br> {{ image.username}} </br>
+
             <form action="{{ url_for('homepage') }}" method="post" onsubmit="return value">
-                <button name="comment" class="btnclick btn-sm" value="{{ image.image_id }}"><img src="/static/comment.png" width="50" height="50"></button>
+                <input name="like" type="hidden" value="1">
+                <button id="button" name="like" class="press" ><img src="/static/hart.png" width="50" height="50"></button>
             </form>
+
+
+            <form action="{{ url_for('homepage') }}" method="post" onsubmit="return value">
+                <button id="button" name="comment" class="btnclick btn-sm" value="{{ image.image_id }}"><img src="/static/comment.png" width="50" height="50"></button>
+            </form>
+
+
 
             {% for comment in comments %}
                 <div style="width: 300px; overflow: auto; overflow-x: hidden; height: 100px;">
@@ -32,24 +63,10 @@
                 </table>
                 </div>
             {% endfor %}
-
-
-
-            <input type="button" id="like{{ image.image_id }}" class="btn btn-danger btn-sm" value="{{ image.likes }}"></button>
         </div>
+
         <br>
 
-        <ul id="images">
-            <li>
-                <br> {{ image.username}} </br>
-                <img src="/static/img/{{ image.path }}" alt="">
-                <br>{{ image.description }}</br>
-                </li>
-                <form action="{{ url_for('homepage') }}" method="post" onsubmit="return value">
-                    <button name="comment" class="btnclick btn-sm" value="{{ image.image_id }}"><img src="/static/comment.png" width="50" height="50"></button>
-                </form>
-                <input type="button" id="like{{ image.image_id }}" class="btn btn-danger btn-sm" value="{{ image.likes }}"></button>
-        </ul>
 
 
 <script>
