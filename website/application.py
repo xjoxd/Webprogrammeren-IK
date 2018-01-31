@@ -7,6 +7,7 @@ from tempfile import mkdtemp
 
 import giphy_client
 from giphy_client.rest import ApiException
+import os
 
 from helpers import *
 from log import *
@@ -235,12 +236,15 @@ def gifsearch():
 
         gifsearch = request.form.get("searchgif")
 
+        key()
+        api_key = os.environ.get("API_KEY")
         # Geeft de API key mee.
         api_instance = giphy_client.DefaultApi()
         q = gifsearch
         limit = 15
-        api_key = 'UhMd2yLtaKHk9mugQY0sjdatP3BfTg5o'
 
+
+        #'UhMd2yLtaKHk9mugQY0sjdatP3BfTg5o'
         # Returned de gifs.
         try:
             api_response = api_instance.gifs_search_get(api_key, q, limit=limit)

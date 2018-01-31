@@ -9,6 +9,8 @@ from flask import redirect, render_template, request, session
 from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
 
+import os
+
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///website.db")
 
@@ -40,3 +42,9 @@ def login_required(f):
             return redirect("/login")
         return f(*args, **kwargs)
     return decorated_function
+
+
+def key():
+    if not os.environ.get("API_KEY"):
+        raise RuntimeError("API_KEY not set")
+    return key
