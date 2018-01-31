@@ -40,3 +40,9 @@ def login_required(f):
             return redirect("/login")
         return f(*args, **kwargs)
     return decorated_function
+
+
+def key():
+    if not os.environ.get("API_KEY"):
+        raise RuntimeError("API_KEY not set")
+    return key
