@@ -21,16 +21,18 @@
             </form>
 
             {% for comment in comments %}
-                <div style="width: 300px; overflow: auto; overflow-x: hidden; height: 100px;">
-                <table>
-                <tbody>
-                    <tr>
-                      <td><b>{{ comment.username }}</b></td>
-                      <td>{{ comment.comment }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                </div>
+                {% if comment.image_id == image.image_id %}
+                    <div style="width: 300px; overflow: auto; overflow-x: hidden; height: 100px;">
+                    <table>
+                    <tbody>
+                        <tr>
+                          <td><b>{{ comment.username }}</b></td>
+                          <td>{{ comment.comment }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </div>
+                {% endif %}
             {% endfor %}
 
 
