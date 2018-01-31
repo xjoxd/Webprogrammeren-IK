@@ -218,117 +218,81 @@ def tag(first_tag, second_tag, third_tag, fourth_tag, fifth_tag, sixth_tag, seve
         else:
             db.execute("UPDATE users SET tag1=:tag WHERE id=:ID;", ID=session["user_id"], tag=first_tag)
 
-        tag1 = db.execute("SELECT tag1 FROM users WHERE id=:ID", ID=session["user_id"])
-
     if len(second_tag) > 0:
 
-        # Stopt de tag in de database als er nog geen tag2 bestaat.
         if len(db.execute("SELECT tag2 FROM users WHERE id=:ID", ID=session["user_id"])) == 0:
             db.execute("INSERT INTO users (tag2) VALUES (:tag)", tag=second_tag)
 
-        # Update de database als er al een tag2 bestaat.
         else:
             db.execute("UPDATE users SET tag2=:tag WHERE id=:ID;", ID=session["user_id"], tag=second_tag)
 
-        tag2 = db.execute("SELECT tag2 FROM users WHERE id=:ID", ID=session["user_id"])
-
     if len(third_tag) > 0:
 
-        # Stopt de tag in de database als er nog geen tag2 bestaat.
         if len(db.execute("SELECT tag3 FROM users WHERE id=:ID", ID=session["user_id"])) == 0:
             db.execute("INSERT INTO users (tag3) VALUES (:tag)", tag=third_tag)
 
-        # Update de database als er al een tag2 bestaat.
         else:
             db.execute("UPDATE users SET tag3=:tag WHERE id=:ID;", ID=session["user_id"], tag=third_tag)
 
-        tag3 = db.execute("SELECT tag3 FROM users WHERE id=:ID", ID=session["user_id"])
-
     if len(fourth_tag) > 0:
 
-        # Stopt de tag in de database als er nog geen tag2 bestaat.
         if len(db.execute("SELECT tag4 FROM users WHERE id=:ID", ID=session["user_id"])) == 0:
             db.execute("INSERT INTO users (tag4) VALUES (:tag)", tag=fourth_tag)
 
-        # Update de database als er al een tag2 bestaat.
         else:
             db.execute("UPDATE users SET tag4=:tag WHERE id=:ID;", ID=session["user_id"], tag=fourth_tag)
 
-        tag4 = db.execute("SELECT tag4 FROM users WHERE id=:ID", ID=session["user_id"])
-
     if len(fifth_tag) > 0:
 
-        # Stopt de tag in de database als er nog geen tag2 bestaat.
         if len(db.execute("SELECT tag5 FROM users WHERE id=:ID", ID=session["user_id"])) == 0:
             db.execute("INSERT INTO users (tag5) VALUES (:tag)", tag=fifth_tag)
 
-        # Update de database als er al een tag2 bestaat.
         else:
             db.execute("UPDATE users SET tag5=:tag WHERE id=:ID;", ID=session["user_id"], tag=fifth_tag)
 
-        tag5 = db.execute("SELECT tag5 FROM users WHERE id=:ID", ID=session["user_id"])
-
     if len(sixth_tag) > 0:
 
-        # Stopt de tag in de database als er nog geen tag2 bestaat.
         if len(db.execute("SELECT tag6 FROM users WHERE id=:ID", ID=session["user_id"])) == 0:
             db.execute("INSERT INTO users (tag6) VALUES (:tag)", tag=sixth_tag)
 
-        # Update de database als er al een tag2 bestaat.
         else:
             db.execute("UPDATE users SET tag6=:tag WHERE id=:ID;", ID=session["user_id"], tag=sixth_tag)
 
-        tag6 = db.execute("SELECT tag6 FROM users WHERE id=:ID", ID=session["user_id"])
-
     if len(seventh_tag) > 0:
 
-        # Stopt de tag in de database als er nog geen tag2 bestaat.
         if len(db.execute("SELECT tag7 FROM users WHERE id=:ID", ID=session["user_id"])) == 0:
             db.execute("INSERT INTO users (tag7) VALUES (:tag)", tag=seventh_tag)
 
-        # Update de database als er al een tag2 bestaat.
         else:
             db.execute("UPDATE users SET tag7=:tag WHERE id=:ID;", ID=session["user_id"], tag=seventh_tag)
 
-        tag7 = db.execute("SELECT tag7 FROM users WHERE id=:ID", ID=session["user_id"])
-
     if len(eigth_tag) > 0:
 
-        # Stopt de tag in de database als er nog geen tag2 bestaat.
         if len(db.execute("SELECT tag8 FROM users WHERE id=:ID", ID=session["user_id"])) == 0:
             db.execute("INSERT INTO users (tag8) VALUES (:tag)", tag=eigth_tag)
 
-        # Update de database als er al een tag2 bestaat.
         else:
             db.execute("UPDATE users SET tag8=:tag WHERE id=:ID;", ID=session["user_id"], tag=eigth_tag)
 
-        tag8 = db.execute("SELECT tag8 FROM users WHERE id=:ID", ID=session["user_id"])
-
     if len(ninth_tag) > 0:
 
-        # Stopt de tag in de database als er nog geen tag2 bestaat.
         if len(db.execute("SELECT tag9 FROM users WHERE id=:ID", ID=session["user_id"])) == 0:
             db.execute("INSERT INTO users (tag9) VALUES (:tag)", tag=ninth_tag)
 
-        # Update de database als er al een tag2 bestaat.
         else:
             db.execute("UPDATE users SET tag9=:tag WHERE id=:ID;", ID=session["user_id"], tag=ninth_tag)
 
-        tag9 = db.execute("SELECT tag9 FROM users WHERE id=:ID", ID=session["user_id"])
-
     if len(tenth_tag) > 0:
 
-        # Stopt de tag in de database als er nog geen tag1 bestaat.
         if len(db.execute("SELECT tag10 FROM users WHERE id=:ID", ID=session["user_id"])) == 0:
             db.execute("INSERT INTO users (tag10) VALUES (:tag)", tag=tenth_tag)
 
-        # Update de database als er al een tag1 bestaat.
         else:
             db.execute("UPDATE users SET tag10=:tag WHERE id=:ID;", ID=session["user_id"], tag=tenth_tag)
 
-        tag10 = db.execute("SELECT tag10 FROM users WHERE id=:ID", ID=session["user_id"])
-
 def key():
+    """Geeft de API-key."""
+
     if not os.environ.get("API_KEY"):
         raise RuntimeError("API_KEY not set")
     return key
