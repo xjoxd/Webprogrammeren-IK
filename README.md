@@ -2,6 +2,7 @@
 *Quintin Raemaekers, Mark Muller en Jo Schreurs*
 
 
+
 ## Inloggen en Registreren
 ### Models
 register: de nieuwe gebruiker en het wachtwoord worden opgeslagen in de database 'users'.
