@@ -4,10 +4,12 @@
 ## Inloggen en Registreren
 ### Models
 register: de nieuwe gebruiker en het wachtwoord worden opgeslagen in de database 'users'.
+
 login: de gegevens van de inloggende gebruiker worden opgehaald uit de database 'users'.
 
 ### Views
 register.html
+
 login.html
 
 ### Controllers
@@ -30,11 +32,14 @@ Door middel van POST kan de gebruiker zich registreren, en wordt deze als alles 
 ## Commenten en liken
 ### Models
 comment: voegt de comments toe aan de database 'comments'.
+
 get_comments: haalt de comments op vanuit de database 'comments'.
+
 like: voegt een like toe aan de database 'images'.
 
 ### Views
 comment.html
+
 Comments en likes worden weergeven op homepage.html
 
 ### Controllers
@@ -51,10 +56,14 @@ Er kunnen comments aan de foto's worden toegevoegd.
 ## Post foto en gifs
 ### Models
 upload_file: voegt een afbeelding toe aan de database 'images'.
+
 giphy: voegt een gif toe aan de database 'images'.
+
 key: geeft de API_KEY mee. 
+
 ### Views
 post.html
+
 gif.html
 
 ### Controllers
@@ -68,9 +77,10 @@ Foto's met description worden geupload.
 Zoekt de gifs van api.giphy.com.
 
 **LET OP: voor het werken van de API_KEY is het nodig om een key in de terminal in te voeren, met export API_KEY=
-achter het '=' teken gelijk de key.
+,achter het '=' teken gelijk de key.
 
 Als de gebruiker op een gif heeft gezocht, wordt hij/zij naar gif.html gestuurd.
+
 Als de gebruiker een gif heeft geselecteerd, wordt hij/zij naar de homepagina gestuurd.
 
 
@@ -100,13 +110,18 @@ Geeft de tags mee aan het account van de ingelogde gebruiker.
 ## Discover
 ### Models
 discover: geeft profielen weer met de tags waarop gezocht is.
+
 status_update: update de status van de ingelogde gebruiker.
+
 follow: update welke gebruiker wie volgt.
+
 pics: selecteert de foto's vanuit de database.
+
 username: haalt de username vanuit de database op.
 
 ### Views
 discover.html
+
 discover_profile.html
 
 ### Controllers
@@ -117,6 +132,7 @@ Zoekt op de ingevoerde tag. Hierna wordt de ingelogde gebruiker doorgestuurd naa
 **Discover (@app.route("/discover"))**
 
 Zoekt op de profielen met de ingevoerde tag.
+
 Als er geen profielen meer zijn, wordt er een apology  gereturned
 
 
