@@ -6,6 +6,7 @@ from flask_uploads import UploadSet, configure_uploads, IMAGES
 from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
 from helpers import *
+import random
 
 import giphy_client
 from giphy_client.rest import ApiException
