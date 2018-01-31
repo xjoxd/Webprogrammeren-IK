@@ -184,3 +184,7 @@ homepage.html
 Geeft de homepagina weer met de foto's en description, en de likes en de comments erbij.
 
 
+## Taakverdling
+We hebben eigenlijk alles samen gedaan.
+
+
