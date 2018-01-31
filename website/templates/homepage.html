@@ -16,10 +16,10 @@
         <div id="wrapper">
             {% if image.path.replace("'" , "")[:5] == 'https'  %}
                 <h2 style="font-family: 'Century Gothic'" color="blue"> {{ image.username}} </h2>
-                <img src="{{ url_for('getgif', gifje=image.path.split('/')[4])   }}" width="500" height="500">
+                <img src="{{ url_for('getgif', gifje=image.path.split('/')[4])   }}" width="850" height="650">
             {% else %}
                 <h2 style="font-family: 'Century Gothic'" color="blue"> {{ image.username}}  </h2>
-                <img src="/static/img/{{ image.path }}" width="500" height="500">
+                <img src="/static/img/{{ image.path }}" width="850" height="650">
                 {% if image.description != None %}
                     <div style="width: 300px; overflow: scroll; height: 100px;">
                         <p>{{ image.description }}</p>
