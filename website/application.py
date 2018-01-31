@@ -42,10 +42,15 @@ db = SQL("sqlite:///website.db")
 def homepage():
     """Geeft de homepagina weer."""
 
+    # Als de gebruiker via POST kwam.
     if request.method == "POST":
+
+        # Naar approute comment gaan als er op comment geklikt is.
         if request.form.get("comment"):
             session["image_id"] = request.form.get("comment")
             return redirect(url_for("comment"))
+
+        # Foto's weergeven.
         else:
             pictures = model.display()
             get_comment = model.get_comments()
@@ -73,15 +78,25 @@ def like():
 @app.route("/comment", methods=["GET", "POST"])
 @login_required
 def comment():
+    # Als de gebruiker via POST kwam.
     if request.method == "POST":
+
+        # Comment plaatsen als er op post geklikt is.
         if request.form.get("post"):
+
+            # Comment opslaan in database.
             if len(request.form.get("comment")) > 0:
+
                 comment = request.form.get("comment")
                 image_id = session.get("image_id")
                 model.comment(comment, image_id)
+
                 return redirect(url_for("homepage"))
+
             else:
                 return redirect(url_for("homepage"))
+
+        # Teruggaan naar homepage als er op cancel gedrukt is.
         elif request.form.get("cancel"):
             return redirect(url_for("homepage"))
 
@@ -242,7 +257,6 @@ def discover():
 
     # Zoeken naar profielen met de door de gebruiker ingevulde tag.
     profile = model.discover(session["tag"])
-    print(profile)
 
     if request.method == "POST":
         if request.form.get("like"):
