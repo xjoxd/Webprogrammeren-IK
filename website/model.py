@@ -108,10 +108,10 @@ def login(username, password):
 def register(username, hash):
     """Registeert gebruikers en zet de gebruikers in de database."""
 
-    # Kijkt of de gebruikersnaam al bestaat.
+    # Checken of de gebruikersnaam al bestaat.
     check = db.execute("SELECT * FROM users WHERE username=:username", username=username)
     if len(check) > 0:
-        return apology("User already exists.")
+        return "existing"
 
     # Zet de gebruikers in de database.
     db.execute("INSERT INTO users (username, hash) VALUES (:username, :hash)", username=username, hash=hash)

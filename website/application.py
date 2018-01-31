@@ -49,6 +49,8 @@ def homepage():
             pictures = model.display()
             get_comment = model.get_comments()
             return render_template("homepage.html", images=pictures, comments=get_comment)
+
+    # Als de gebruiker via GET de route bereikt heeft.
     else:
         pictures = model.display()
         get_comment = model.get_comments()
@@ -75,13 +77,13 @@ def comment():
         elif request.form.get("cancel"):
             return redirect(url_for("homepage"))
 
-    # Als de gebruiker via GET de rout bereikt heeft.
+    # Als de gebruiker via GET de route bereikt heeft.
     else:
         return render_template("comment.html")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    """logt de gebruiker in."""
+    """Logt de gebruiker in."""
 
     # Als de gebruiker via POST kwam.
     if request.method == "POST":
@@ -93,13 +95,13 @@ def login():
 
         # Apology returnen als gebruikersnaam/wachtwoord fout is.
         if log == False:
-            return apology("Invalid username and/or password.")
+            return apology("Invalid username or password.")
 
         # Gebruiker naar homepagina sturen.
         else:
             return redirect(url_for("homepage"))
 
-    # Als de gebruiker via GET de rout bereikt heeft.
+    # Als de gebruiker via GET de route bereikt heeft.
     else:
         return render_template("login.html")
 
@@ -120,22 +122,32 @@ def register():
     # Als de gebruiker via POST kwam.
     if request.method == "POST":
 
-        # Returned excuses als de wachtwoorden niet hetzelfde zijn.
+        # Excuses returnen als de wachtwoorden niet hetzelfde zijn.
         if request.form.get("password") != request.form.get("confirm_password"):
-            return apology("Passwords do not match!")
+            return apology("Passwords don't match.")
 
-        # Het wachtwoord encrypten.
-        password = request.form.get("password")
-        hash = pwd_context.hash(password)
+        # De gebruiker registreren.
+        else:
 
-        username = request.form.get("username")
+            # Wachtwoord encrypten.
+            password = request.form.get("password")
+            hash = pwd_context.hash(password)
 
-        # De wordt geregistreerd met de functie reg.
-        model.register(username, hash)
+            # Ingevulde gebruikersnaam opvragen.
+            username = request.form.get("username")
 
-        # Stuurt de gebruiker naar de homepagina.
-        return redirect(url_for("homepage"))
+            # De gebruiker registreren en direct inloggen.
+            reg = model.register(username, hash)
 
+            # Checken of de gebruikersnaam niet reeds bestaat.
+            if reg == "existing":
+                return apology("Username already exists.")
+
+            # De gebruiker naar de homepagina sturen.
+            else:
+                return redirect(url_for("homepage"))
+
+    # Als de gebruiker via GET de route bereikt heeft.
     else:
         return render_template("register.html")
 
@@ -156,6 +168,7 @@ def post():
         # Stuurt de gebruiker naar de homepagina.
         return redirect(url_for("homepage"))
 
+    # Als de gebruiker via GET de route bereikt heeft.
     else:
         return render_template("post.html")
 
@@ -186,6 +199,7 @@ def settings():
         # Stuurt de gebruiker naar de homepagina.
         return render_template("settings.html")
 
+    # Als de gebruiker via GET de route bereikt heeft.
     else:
         return render_template("settings.html")
 
@@ -196,6 +210,8 @@ def search():
     if request.method == "POST":
         session["tag"] = request.form.get("tag")
         return redirect(url_for("discover"))
+
+    # Als de gebruiker via GET de route bereikt heeft.
     else:
         return render_template("discover.html")
 
@@ -216,6 +232,7 @@ def discover():
 
         return redirect(url_for("discover"))
 
+    # Als de gebruiker via GET de route bereikt heeft.
     else:
         if profile == "empty":
             return apology("No more matches available.")
@@ -249,6 +266,7 @@ def gifsearch():
         except ApiException as e:
             return apology ("No gifs selected")
 
+    # Als de gebruiker via GET de route bereikt heeft.
     else:
         return redirect(url_for("homepage"))
 
@@ -257,6 +275,8 @@ def gifsearch():
 def storegif():
     if request.method == "POST":
         return redirect(url_for("post"))
+
+    # Als de gebruiker via GET de route bereikt heeft.
     else:
         filename = request.args.get('url')
         model.giphy(filename)
