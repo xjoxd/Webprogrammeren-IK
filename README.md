@@ -8,6 +8,7 @@
 <img src='https://i.imgur.com/Js36Ykw.jpg'/>
 <img src='https://i.imgur.com/tadLzMv.jpg'/>
 
+
 ## Mapjes
 ### Templates
 Hierin kun je alle html files vinden.
@@ -27,6 +28,7 @@ Hierin staan alle functies. Wat ze voornamelijk doen is de database updaten.
 
 ### website.db
 Dit is de database waarin alles wat op de site wordt weergegeven wordt opgeslagen en alles uit wordt gehaald.
+
 
 ## Inloggen en Registreren
 ### Models
@@ -180,3 +182,5 @@ homepage.html
 **Homepage (@app.route("/homepage"))**
 
 Geeft de homepagina weer met de foto's en description, en de likes en de comments erbij.
+
+
