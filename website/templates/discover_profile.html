@@ -8,10 +8,10 @@
 
     <div>
     {% for picture in pictures %}
-        {% if image.path.replace("'" , "")[:5] == 'https'  %}
-            <a><img src="{{ url_for('getgif', gifje=image.path.split('/')[4])   }}" width="500" height="500"></img></a>
+        {% if picture.path.replace("'" , "")[:5] == 'https'  %}
+            <a><img src="{{ url_for('getgif', gifje=picture.path.split('/')[4])   }}" width="500" height="500"></img></a>
         {% else %}
-            <a><img src="/static/img/{{ image.path }}" width="500" height="500"></img></a>
+            <a><img src="/static/img/{{ picture.path }}" width="500" height="500"></img></a>
         {% endif %}
     {% endfor %}
     </div>
