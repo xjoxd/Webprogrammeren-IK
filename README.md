@@ -117,3 +117,20 @@ Zoekt op de ingevoerde tag. Hierna wordt de ingelogde gebruiker doorgestuurd naa
 **Discover (@app.route("/discover"))**
 
 Zoekt op de profielen met de ingevoerde tag.
+Als er geen profielen meer zijn, wordt er een apology  gereturned
+
+
+## Homepage
+### Models
+display: geeft de foto's weer.
+
+### Views
+homepage.html
+
+### Models
+**Homepage (@app.route("/homepage"))**
+
+Geeft de homepagina weer met de foto's en discription, en de likes en de comments erbij.
+
+
+
