@@ -9,7 +9,7 @@
     <form method="POST" enctype=multipart/form-data action="{{ url_for("post") }}">
         <label for="txtPost">Description</label>
             <textarea class="form-control" name="description" maxlength="1000"></textarea>
-        <input type=file name=photo>
+        <input type=file name=photo accept=".jpg,.jpeg,.png">
         <div class = "form-group">
             <button class = "btn btn-default" type="submit" > Post</button>
         </div>
