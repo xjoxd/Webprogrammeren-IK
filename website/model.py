@@ -46,7 +46,7 @@ def display():
     follower_id=session["user_id"])
     print(picture_info)
 
-    return user_follow
+    return picture_info
 
 def get_comments():
     """Haalt de comments op."""
