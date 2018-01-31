@@ -33,7 +33,7 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-# configure CS50 Library to use SQLite database
+# CS50 Library configureren om SQLite database te gebruiken.
 db = SQL("sqlite:///website.db")
 
 
