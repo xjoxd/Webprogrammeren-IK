@@ -305,7 +305,7 @@ def storegif():
         # URL in de database zetten.
         model.giphy(filename)
 
-        return redirect(url_for("post"))
+        return redirect(url_for("homepage"))
 
 
 @app.route("/getgif/<gifje>", methods=["GET"])
