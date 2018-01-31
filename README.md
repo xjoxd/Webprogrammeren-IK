@@ -77,7 +77,7 @@ Foto's met description worden geupload.
 Zoekt de gifs van api.giphy.com.
 
 **LET OP: voor het werken van de API_KEY is het nodig om een key in de terminal in te voeren, met export API_KEY=
-,achter het '=' teken gelijk de key.
+,achter het '=' teken gelijk de key.**
 
 Als de gebruiker op een gif heeft gezocht, wordt hij/zij naar gif.html gestuurd.
 
