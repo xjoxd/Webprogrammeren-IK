@@ -346,3 +346,8 @@ def tag(first_tag, second_tag, third_tag, fourth_tag, fifth_tag, sixth_tag, seve
 
 
     return tag1, tag2, tag3, tag4, tag5, tag6, tag7, tag8, tag9, tag10
+
+def key():
+    if not os.environ.get("API_KEY"):
+        raise RuntimeError("API_KEY not set")
+    return key

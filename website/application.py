@@ -4,18 +4,13 @@ from flask_session import Session
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
+from helpers import *
+import model
 
 import giphy_client
 from giphy_client.rest import ApiException
-import os
 
-from helpers import *
-from log import *
-from reg import *
-from upload import *
-from homepage import *
-from settings import *
-from disc import *
+
 
 # configure application
 app = Flask(__name__)
@@ -53,16 +48,18 @@ def homepage():
             session["image_id"] = request.form.get("comment")
             return redirect(url_for("comment"))
         else:
-            pictures = display()
-            return render_template("homepage.html", images=pictures)
+            pictures = model.display()
+            get_comment = model.get_comments()
+            return render_template("homepage.html", images=pictures, comments=get_comment)
     else:
-        pictures = display()
-        return render_template("homepage.html", images=pictures)
+        pictures = model.display()
+        get_comment = model.get_comments()
+        return render_template("homepage.html", images=pictures, comments=get_comment)
 
 @app.route("/like", methods=["POST"])
 def like():
     image_id = request.form.get("image_id")
-    likes = liking(image_id)
+    likes = model.like(image_id)
     return str(likes)
 
 @app.route("/comment", methods=["GET", "POST"])
@@ -74,14 +71,14 @@ def comment():
             if len(request.form.get("comment")) > 0:
                 comment = request.form.get("comment")
                 image_id = session.get("image_id")
-                commenting(comment, image_id)
-                pictures = display()
+                model.comment(comment, image_id)
+                pictures = model.display()
                 return render_template("homepage.html", images=pictures)
             else:
-                pictures = display()
+                pictures = model.display()
                 return render_template("homepage.html", images=pictures)
         elif request.form.get("cancel"):
-            pictures = display()
+            pictures = model.display()
             return render_template("homepage.html", images=pictures)
     else:
         return render_template("comment.html")
@@ -96,7 +93,7 @@ def login():
         password = request.form.get("password")
 
         # De gebruiker wordt hier ingelogd.
-        log(username, password)
+        model.login(username, password)
 
         # Stuurt de gebruiker naar de homepagina.
         return redirect(url_for("homepage"))
@@ -132,7 +129,7 @@ def register():
         username = request.form.get("username")
 
         # De wordt geregistreerd met de functie reg.
-        reg(username, hash)
+        model.register(username, hash)
 
         # Stuurt de gebruiker naar de homepagina.
         return redirect(url_for("homepage"))
@@ -152,7 +149,7 @@ def post():
         description = request.form.get("description")
 
         # De foto en de beschrijving wordt geüpload.
-        upload_file(filename, description)
+        model.upload_file(filename, description)
 
         # Stuurt de gebruiker naar de homepagina.
         return redirect(url_for("homepage"))
@@ -181,7 +178,8 @@ def settings():
         tenth_tag = request.form.get("tag10")
 
         # De tags worden aan de gebruiker gekoppeld.
-        tags = tag(first_tag, second_tag, third_tag, fourth_tag, fifth_tag, sixth_tag, seventh_tag, eigth_tag, ninth_tag, tenth_tag)
+        tags = model.tag(first_tag, second_tag, third_tag, fourth_tag, fifth_tag, sixth_tag, seventh_tag, \
+        eigth_tag, ninth_tag, tenth_tag)
         print(tags)
         print(tags[0][0]["tag1"])
 
@@ -207,14 +205,14 @@ def search():
 def discover():
 
     # Zoeken naar profielen met de door de gebruiker ingevulde tag.
-    profile = disc(session["tag"])
+    profile = model.discover(session["tag"])
     print(profile)
 
     if request.method == "POST":
         if request.form.get("like"):
-            follow(profile)
+            model.follow(profile)
 
-        status_update(profile)
+        model.status_update(profile)
 
         return redirect(url_for("discover"))
 
@@ -222,8 +220,8 @@ def discover():
         if profile == "empty":
             return apology("no more matches available")
         else:
-            imges = pics(profile)
-            username = usernamee(profile)
+            imges = model.pics(profile)
+            username = model.username(profile)
             return render_template("discover_profile.html", pictures=imges, username=username)
 
 @app.route("/gifsearch", methods=["GET", "POST"])
@@ -236,15 +234,14 @@ def gifsearch():
 
         gifsearch = request.form.get("searchgif")
 
-        key()
+        model.key()
         api_key = os.environ.get("API_KEY")
+
         # Geeft de API key mee.
         api_instance = giphy_client.DefaultApi()
         q = gifsearch
         limit = 15
 
-
-        #'UhMd2yLtaKHk9mugQY0sjdatP3BfTg5o'
         # Returned de gifs.
         try:
             api_response = api_instance.gifs_search_get(api_key, q, limit=limit)
@@ -262,10 +259,6 @@ def storegif():
         return redirect(url_for("post"))
     else:
         filename = request.args.get('url')
-        giphy(filename)
+        model.giphy(filename)
         return redirect(url_for("post"))
 
-    
-@app.route("/getgif/<gifje>", methods=["GET"])
-def getgif(gifje):
-    return redirect("https://media1.giphy.com/media/" + gifje+"/giphy.gif")
