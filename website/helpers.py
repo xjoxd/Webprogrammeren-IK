@@ -11,7 +11,7 @@ from tempfile import mkdtemp
 
 import os
 
-# configure CS50 Library to use SQLite database
+# CS50 Library configureren om SQLite database te gebruiken.
 db = SQL("sqlite:///website.db")
 
 
@@ -19,7 +19,7 @@ def apology(message, code=400):
     """Stuurt een bericht als excuses naar de gebruiker."""
     def escape(s):
         """
-        Escape special characters.
+        Ontsnappen van speciale symbolen.
 
         https://github.com/jacebrowning/memegen#special-characters
         """
