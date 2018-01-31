@@ -10,11 +10,11 @@ import model
 import giphy_client
 from giphy_client.rest import ApiException
 
-# configure application
+# Applicatie configureren.
 app = Flask(__name__)
 
+# Foto upload mechanisme initialiseren.
 photos = UploadSet("photos", IMAGES)
-
 app.config["UPLOADED_PHOTOS_DEST"] = "static/img"
 configure_uploads(app, photos)
 
@@ -27,7 +27,7 @@ if app.config["DEBUG"]:
         response.headers["Pragma"] = "no-cache"
         return response
 
-# configure session to use filesystem (instead of signed cookies)
+# Session configureren om het bestandensysteem te gebruiken.
 app.config["SESSION_FILE_DIR"] = mkdtemp()
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
@@ -35,6 +35,7 @@ Session(app)
 
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///website.db")
+
 
 @app.route("/", methods=["GET", "POST"])
 @login_required
@@ -56,11 +57,13 @@ def homepage():
         get_comment = model.get_comments()
         return render_template("homepage.html", images=pictures, comments=get_comment)
 
+
 @app.route("/like", methods=["POST"])
 def like():
     image_id = request.form.get("image_id")
     likes = model.like(image_id)
     return str(likes)
+
 
 @app.route("/comment", methods=["GET", "POST"])
 @login_required
@@ -81,6 +84,7 @@ def comment():
     else:
         return render_template("comment.html")
 
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Logt de gebruiker in."""
@@ -93,7 +97,7 @@ def login():
         # De gebruiker wordt hier ingelogd.
         log = model.login(username, password)
 
-        # Apology returnen als gebruikersnaam/wachtwoord fout is.
+        # Excuses returnen als gebruikersnaam/wachtwoord fout is.
         if log == False:
             return apology("Invalid username or password.")
 
@@ -105,15 +109,17 @@ def login():
     else:
         return render_template("login.html")
 
+
 @app.route("/logout")
 def logout():
     """Logt de gebruiker uit."""
 
-    # Alle gebruikers hun id's vergeten.
+    # Alle gebruikers-id's vergeten.
     session.clear()
 
-    # Stuurt de gebruiker terug naar de loginpagina.
+    # De gebruiker terugsturen naar de loginpagina.
     return redirect(url_for("login"))
+
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -151,6 +157,7 @@ def register():
     else:
         return render_template("register.html")
 
+
 @app.route("/post", methods=["GET", "POST"])
 @login_required
 def post():
@@ -172,6 +179,7 @@ def post():
     else:
         return render_template("post.html")
 
+
 @app.route("/settings", methods=["GET", "POST"])
 @login_required
 def settings():
@@ -180,7 +188,7 @@ def settings():
     # Als de gebruiker via POST kwam.
     if request.method == "POST":
 
-        # De tags worden aangevraagd en in de database gestopt.
+        # De tags worden aangevraagd en in de database opgeslagen.
         first_tag = request.form.get("tag1")
         second_tag = request.form.get("tag2")
         third_tag = request.form.get("tag3")
@@ -207,8 +215,15 @@ def settings():
 @app.route("/search", methods=["GET", "POST"])
 @login_required
 def search():
+    """Zoekt naar gebruikers met de gezochte tag."""
+
+    # Als de gebruiker via POST kwam.
     if request.method == "POST":
+
+        # Gezochte tag opvragen.
         session["tag"] = request.form.get("tag")
+
+        # Gebruiker naar de discoverpagina doorsturen.
         return redirect(url_for("discover"))
 
     # Als de gebruiker via GET de route bereikt heeft.
@@ -241,6 +256,7 @@ def discover():
             username = model.username(profile)
             return render_template("discover_profile.html", pictures=imges, username=username)
 
+
 @app.route("/gifsearch", methods=["GET", "POST"])
 @login_required
 def gifsearch():
@@ -270,18 +286,30 @@ def gifsearch():
     else:
         return redirect(url_for("homepage"))
 
+
 @app.route("/storegif", methods=["GET", "POST"])
 @login_required
 def storegif():
+    """Slaat gifs op in de database."""
+
+    # Als de gebruiker via POST kwam.
     if request.method == "POST":
         return redirect(url_for("post"))
 
     # Als de gebruiker via GET de route bereikt heeft.
     else:
+
+        # URL van de gif opvragen.
         filename = request.args.get('url')
+
+        # URL in de database zetten.
         model.giphy(filename)
+
         return redirect(url_for("post"))
+
 
 @app.route("/getgif/<gifje>", methods=["GET"])
 def getgif(gifje):
+    """De gebruiker kan gifs zoeken."""
+
     return redirect("https://media1.giphy.com/media/" + gifje+"/giphy.gif")

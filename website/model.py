@@ -150,9 +150,8 @@ def upload_file(filename, description):
     return photo
 
 def giphy(filename):
-    url = request.args.get("url")
+    """Zet de gifs in de database."""
 
-    print(filename)
     # Selecteert de username vanuit de database.
     username = db.execute("SELECT username FROM users WHERE id=:id", id=session["user_id"])
 
