@@ -6,9 +6,7 @@
 <img src='https://i.imgur.com/AKVYutH.jpg'/>
 <img src='https://i.imgur.com/ZWQQPLQ.jpg'/>
 <img src='https://i.imgur.com/Js36Ykw.jpg'/>
-
-
-
+<img src='https://i.imgur.com/tadLzMv.jpg'/>
 
 
 ## Inloggen en Registreren
