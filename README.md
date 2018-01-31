@@ -153,4 +153,3 @@ homepage.html
 **Homepage (@app.route("/homepage"))**
 
 Geeft de homepagina weer met de foto's en discription, en de likes en de comments erbij.
-
