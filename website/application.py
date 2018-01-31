@@ -63,7 +63,6 @@ def like():
 @app.route("/comment", methods=["GET", "POST"])
 @login_required
 def comment():
-    # return apology("TODO")
     if request.method == "POST":
         if request.form.get("post"):
             if len(request.form.get("comment")) > 0:
@@ -75,6 +74,8 @@ def comment():
                 return redirect(url_for("homepage"))
         elif request.form.get("cancel"):
             return redirect(url_for("homepage"))
+
+    # Als de gebruiker via GET de rout bereikt heeft.
     else:
         return render_template("comment.html")
 
@@ -88,11 +89,17 @@ def login():
         password = request.form.get("password")
 
         # De gebruiker wordt hier ingelogd.
-        model.login(username, password)
+        log = model.login(username, password)
 
-        # Stuurt de gebruiker naar de homepagina.
-        return redirect(url_for("homepage"))
+        # Apology returnen als gebruikersnaam/wachtwoord fout is.
+        if log == False:
+            return apology("Invalid username and/or password.")
 
+        # Gebruiker naar homepagina sturen.
+        else:
+            return redirect(url_for("homepage"))
+
+    # Als de gebruiker via GET de rout bereikt heeft.
     else:
         return render_template("login.html")
 

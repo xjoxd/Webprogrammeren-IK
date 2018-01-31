@@ -11,11 +11,11 @@ import random
 import giphy_client
 from giphy_client.rest import ApiException
 
-# configure application
+# Applicatie configureren.
 app = Flask(__name__)
 
+# Foto upload mechanisme initialiseren.
 photos = UploadSet("photos", IMAGES)
-
 app.config["UPLOADED_PHOTOS_DEST"] = "static/img"
 configure_uploads(app, photos)
 
@@ -28,13 +28,13 @@ if app.config["DEBUG"]:
         response.headers["Pragma"] = "no-cache"
         return response
 
-# configure session to use filesystem (instead of signed cookies)
+# Session configureren om het bestandensysteem te gebruiken.
 app.config["SESSION_FILE_DIR"] = mkdtemp()
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-# configure CS50 Library to use SQLite database
+# CS50 Library configureren om SQLite database te gebruiken.
 db = SQL("sqlite:///website.db")
 
 
@@ -51,7 +51,9 @@ def display():
 def get_comments():
     """Haalt de comments op."""
 
+    # Comments in chronologische volgorde uit de database halen.
     get_comment = db.execute("SELECT * FROM comments ORDER BY timestamp DESC")
+
     return get_comment
 
 def like(image_id):
@@ -61,6 +63,7 @@ def like(image_id):
     users = db.execute("SELECT id FROM likes WHERE image_id=:image_id AND id=:id", image_id=image_id, id=session["user_id"])
 
     if len(users) == 0:
+
         # Gebruiker die de foto geliked heeft in de database zetten.
         db.execute("INSERT INTO likes (image_id, id, username) VALUES (:image_id, :id, :username)", \
         image_id=image_id, id=session["user_id"], username=session["username"])
@@ -69,14 +72,20 @@ def like(image_id):
         likes = db.execute("SELECT likes FROM images WHERE image_id=:image_id", image_id=image_id)
         likes = likes[0]["likes"] + 1
         db.execute("UPDATE images SET likes=:likes WHERE image_id=:image_id", likes=likes, image_id=image_id)
+
         return likes
 
-    likes = db.execute("SELECT likes FROM images WHERE image_id=:image_id", image_id=image_id)
-    return likes[0]["likes"]
+    else:
+
+        # Hetzelfde aantal likes returnen als de foto al eens door de gebruiker geliked is.
+        likes = db.execute("SELECT likes FROM images WHERE image_id=:image_id", image_id=image_id)
+
+        return likes[0]["likes"]
 
 def comment(comment, image_id):
     """Voegt reacties oftewel comments toe aan de foto."""
 
+    # Comments worden opgevraagd uit de database.
     comments = db.execute("INSERT INTO comments (image_id, comment, id, username) VALUES (:image_id, :comment, :id, :username)", \
     image_id=image_id, comment=comment, id=session["user_id"], username=session["username"])
 
@@ -90,11 +99,11 @@ def login(username, password):
 
     # Verzekert dat de gebruikersnaam bestaat en dat het wachtwoord correct is.
     if len(rows) != 1 or not pwd_context.verify(password, rows[0]["hash"]):
-        return apology("invalid username and/or password")
-
-    # Onthoud welke gebruiker ingelogd is.
-    session["user_id"] = rows[0]["id"]
-    session["username"] = rows[0]["username"]
+        return False
+    else:
+        # Onthoud welke gebruiker ingelogd is.
+        session["user_id"] = rows[0]["id"]
+        session["username"] = rows[0]["username"]
 
 def register(username, hash):
     """Registeert gebruikers en zet de gebruikers in de database."""
@@ -110,9 +119,15 @@ def register(username, hash):
     # Haalt de user id op uit database.
     rows = db.execute("SELECT * FROM users WHERE username=:username", username=username)
 
-    # Onthoud welke gebruiker ingelogd is.
+    # Onthoudt welke gebruiker ingelogd is.
     session["user_id"] = rows[0]["id"]
     session["username"] = rows[0]["username"]
+
+    # Zorgt ervoor dat de gebruiker zichzelf volgt.
+    db.execute("INSERT INTO follow (follower_id, follower_username, followed_id, followed_username) \
+    VALUES (:follower_id, :follower_username, :followed_id, :followed_username)",\
+    follower_id=session["user_id"], follower_username=session["username"], \
+    followed_id=session["user_id"], followed_username=session["username"])
 
 def upload_file(filename, description):
     """Zet de foto's in de database."""
@@ -176,7 +191,8 @@ def follow(profile):
 
     db.execute("INSERT INTO follow (follower_id, follower_username, followed_id, followed_username) \
     VALUES (:follower_id, :follower_username, :followed_id, :followed_username)",\
-    follower_id=session["user_id"], follower_username=session["username"], followed_id=profile, followed_username=username[0]["username"])
+    follower_id=session["user_id"], follower_username=session["username"], followed_id=profile, \
+    followed_username=username[0]["username"])
 
 def pics(profile):
     """Returnt foto's van de gebruiker."""
