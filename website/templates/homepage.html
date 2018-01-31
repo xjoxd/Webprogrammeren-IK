@@ -15,29 +15,30 @@
     {% for image in images %}
         <div id="wrapper">
             {% if image.path.replace("'" , "")[:5] == 'https'  %}
-                <h2 style="font-family: 'Century Gothic'" color="blue"> {{ image.username}} </h2>
+                <h2 style="font-family: 'Century Gothic'; color:#58D3F7; font-weight:bold;"> {{ image.username}} </h2>
                 <img src="{{ url_for('getgif', gifje=image.path.split('/')[4])   }}" width="850" height="650">
+                <br><br>
             {% else %}
-                <h2 style="font-family: 'Century Gothic'" color="blue"> {{ image.username}}  </h2>
+                <h2 style="font-family: 'Century Gothic'; color:#58D3F7; font-weight:bold;"> {{ image.username}}  </h2>
                 <img src="/static/img/{{ image.path }}" width="850" height="650">
+                <br><br>
                 {% if image.description != None %}
-                    <div style="width: 300px; overflow: scroll; height: 100px;">
+                    <div style="width: 800px; overflow: scroll; overflow-x: auto; overflow-y: auto; height: 60px;">
                         <p>{{ image.description }}</p>
                     </div>
                 {% endif %}
             {% endif %}
 
-        <br><br>
+
         <input type="button" id="like{{ image.image_id }}" class="btn btn-danger btn-sm" value="{{ image.likes }}"> likes </button>
         <form action="{{ url_for('homepage') }}" method="post" onsubmit="return value">
             <button name="comment" class="btn btn-primary btn-sm" value="{{ image.image_id }}"> Comment </button>
         </form>
 
-
-            <div style="width: 300px; overflow: scroll; height: 100px;">
+            <div style="width: 300px; overflow: scroll; overflow-x: auto; overflow-y: auto; height: 90px;">
             {% for comment in comments %}
                 {% if comment.image_id == image.image_id %}
-                    <h2>{{ comment.username }}</h2>
+                    <h5 style="font-weight:bold">{{ comment.username }}</h5>
                     <p>{{ comment.comment }}</p>
                  {% endif %}
             {% endfor %}
