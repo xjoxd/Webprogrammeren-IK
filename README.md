@@ -148,5 +148,3 @@ homepage.html
 
 Geeft de homepagina weer met de foto's en discription, en de likes en de comments erbij.
 
-
-
