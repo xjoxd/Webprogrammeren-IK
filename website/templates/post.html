@@ -7,6 +7,19 @@
 {% block main %}
 <center>
 
+    <style>
+    body{
+        background: url("https://i.imgur.com/wQR7f5y.jpg") no-repeat;
+        background-size: 100%;
+    }
+
+    #id{
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    </style>
+
     <h2> Post photo </h2>
     <form method="POST" enctype=multipart/form-data action="{{ url_for("post") }}">
         <input type=file class="btn btn-default" name=photo accept=".jpg,.jpeg,.png">
@@ -20,6 +33,7 @@
     <br><br>
     <br><br>
     <center>
+    <div id="gif">
     <h2> Post giphy </h2>
     <form method="post" action="{{ url_for("gifsearch") }}" >
         <fieldset>
@@ -32,6 +46,7 @@
             </div>
         </fieldset>
     </form>
+    </div>
     </center>
 </center>
 
