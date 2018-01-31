@@ -286,6 +286,9 @@ def gifsearch():
 
         gifsearch = request.form.get("searchgif")
 
+        if len(gifsearch) == 0:
+            return apology("Fill in a keyword!")
+
         model.key()
         api_key = os.environ.get("API_KEY")
 
