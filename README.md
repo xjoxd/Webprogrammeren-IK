@@ -30,6 +30,7 @@ Door middel van POST kan de gebruiker inloggen en wordt deze doorverwezen naar d
 Door middel van POST kan de gebruiker zich registreren, en wordt deze als alles klopt doorverwezen naar de homepagina.
 
 
+
 ## Commenten en liken
 ### Models
 comment: voegt de comments toe aan de database 'comments'.
@@ -52,6 +53,7 @@ Er kan een like toegevoegd aan de foto.
 **Comment (@app.route("/comment"))**
 
 Er kunnen comments aan de foto's worden toegevoegd.
+
 
 
 ## Post foto en gifs
@@ -95,6 +97,7 @@ Zet de gif als url.
 Geeft de juiste url van de gif weer zonder aanverwanten van cs50 IDE.
 
 
+
 ## Settings
 ### Models
 tag: voegt 10 tags toe aan de database 'users'.
@@ -106,6 +109,7 @@ register.html
 **Settings (@app.route("/settings"))**
 
 Geeft de tags mee aan het account van de ingelogde gebruiker.
+
 
 
 ## Discover
@@ -135,6 +139,7 @@ Zoekt op de ingevoerde tag. Hierna wordt de ingelogde gebruiker doorgestuurd naa
 Zoekt op de profielen met de ingevoerde tag.
 
 Als er geen profielen meer zijn, wordt er een apology  gereturned
+
 
 
 ## Homepage
