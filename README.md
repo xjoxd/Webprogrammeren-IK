@@ -18,6 +18,7 @@ login.html
 **Logout (@app.route("/logout"))**
 
 Door middel van POST kan de gebruiker zich uitloggen, geen aparte pagina.
+
 De gebruiker wordt teruggestuurd naar login.
 
 
