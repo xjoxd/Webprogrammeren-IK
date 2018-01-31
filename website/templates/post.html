@@ -5,24 +5,22 @@
 {% endblock %}
 
 {% block main %}
+<center>
 
-    <style>
-    body{
-        background: url("https://i.imgur.com/wQR7f5y.jpg") no-repeat;
-        background-size: 100%;
-    }
-    </style>
-
-
+    <h2> Post photo </h2>
     <form method="POST" enctype=multipart/form-data action="{{ url_for("post") }}">
-        <label for="txtPost">Description</label>
-            <textarea class="form-control" name="description" maxlength="1000"></textarea>
-        <input type=file name=photo accept=".jpg,.jpeg,.png">
+        <input type=file class="btn btn-default" name=photo accept=".jpg,.jpeg,.png">
+        <br><br>
+        <textarea class="form-control" placeholder="Description" name="description" maxlength="1000"></textarea>
+        <br><br>
         <div class = "form-group">
             <button class = "btn btn-default" type="submit" > Post</button>
         </div>
     </form>
-
+    <br><br>
+    <br><br>
+    <center>
+    <h2> Post giphy </h2>
     <form method="post" action="{{ url_for("gifsearch") }}" >
         <fieldset>
             </div>
@@ -34,5 +32,7 @@
             </div>
         </fieldset>
     </form>
+    </center>
+</center>
 
 {% endblock %}
