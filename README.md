@@ -1,4 +1,4 @@
-# PROJECT
+# Tinderest
 *Quintin Raemaekers, Mark Muller en Jo Schreurs*
 
 
