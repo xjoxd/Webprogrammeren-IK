@@ -19,39 +19,17 @@
             <form action="{{ url_for('homepage') }}" method="post" onsubmit="return value">
                 <button name="comment" class="btnclick btn-sm" value="{{ image.image_id }}"><img src="/static/comment.png" width="50" height="50"></button>
             </form>
-
+            <input type="button" id="like{{ image.image_id }}" class="btn btn-danger btn-sm" value="{{ image.likes }}"></button>
+            <div style="width: 300px; overflow: auto; overflow-x: hidden; height: 100px;">
             {% for comment in comments %}
                 {% if comment.image_id == image.image_id %}
-                    <div style="width: 300px; overflow: auto; overflow-x: hidden; height: 100px;">
-                    <table>
-                    <tbody>
-                        <tr>
-                          <td><b>{{ comment.username }}</b></td>
-                          <td>{{ comment.comment }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    </div>
-                {% endif %}
+                    <h2>{{ comment.username }}</h2>
+                    <p>{{ comment.comment }}</p>
+                 {% endif %}
             {% endfor %}
-
-
-
-            <input type="button" id="like{{ image.image_id }}" class="btn btn-danger btn-sm" value="{{ image.likes }}"></button>
+            </div>
         </div>
         <br>
-
-        <ul id="images">
-            <li>
-                <br> {{ image.username}} </br>
-                <img src="/static/img/{{ image.path }}" alt="">
-                <br>{{ image.description }}</br>
-                </li>
-                <form action="{{ url_for('homepage') }}" method="post" onsubmit="return value">
-                    <button name="comment" class="btnclick btn-sm" value="{{ image.image_id }}"><img src="/static/comment.png" width="50" height="50"></button>
-                </form>
-                <input type="button" id="like{{ image.image_id }}" class="btn btn-danger btn-sm" value="{{ image.likes }}"></button>
-        </ul>
 
 
 <script>
