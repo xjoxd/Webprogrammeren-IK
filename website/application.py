@@ -72,14 +72,11 @@ def comment():
                 comment = request.form.get("comment")
                 image_id = session.get("image_id")
                 model.comment(comment, image_id)
-                pictures = model.display()
-                return render_template("homepage.html", images=pictures)
+                return redirect(url_for(""))
             else:
-                pictures = model.display()
-                return render_template("homepage.html", images=pictures)
+                return redirect(url_for(""))
         elif request.form.get("cancel"):
-            pictures = model.display()
-            return render_template("homepage.html", images=pictures)
+            return redirect(url_for(""))
     else:
         return render_template("comment.html")
 
@@ -96,7 +93,7 @@ def login():
         model.login(username, password)
 
         # Stuurt de gebruiker naar de homepagina.
-        return redirect(url_for("homepage"))
+        return redirect(url_for(""))
 
     else:
         return render_template("login.html")
@@ -132,7 +129,7 @@ def register():
         model.register(username, hash)
 
         # Stuurt de gebruiker naar de homepagina.
-        return redirect(url_for("homepage"))
+        return redirect(url_for(""))
 
     else:
         return render_template("register.html")
@@ -152,7 +149,7 @@ def post():
         model.upload_file(filename, description)
 
         # Stuurt de gebruiker naar de homepagina.
-        return redirect(url_for("homepage"))
+        return redirect(url_for(""))
 
     else:
         return render_template("post.html")
@@ -250,7 +247,7 @@ def gifsearch():
             return apology ("No gifs selected")
 
     else:
-        return render_template("post.html")
+        return redirect(url_for(""))
 
 @app.route("/storegif", methods=["GET", "POST"])
 @login_required
@@ -261,8 +258,3 @@ def storegif():
         filename = request.args.get('url')
         model.giphy(filename)
         return redirect(url_for("post"))
-
-@app.route("/getgif/<gifje>", methods=["GET"])
-def getgif(gifje):
-    return redirect("https://media1.giphy.com/media/" + gifje+"/giphy.gif")
-
