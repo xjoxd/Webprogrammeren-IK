@@ -8,6 +8,25 @@
 <img src='https://i.imgur.com/Js36Ykw.jpg'/>
 <img src='https://i.imgur.com/tadLzMv.jpg'/>
 
+## Mapjes
+### Templates
+Hierin kun je alle html files vinden.
+
+### Static
+Hierin is de styles.css te vinden die zorgt voor de opmaak van de site.
+
+### Static/Img
+Hierin worden alle foto's opgeslagen die iemand post.
+
+## Files
+### helpers.py
+In helpers staat de apology functie die ervoor zorgt dat er een excuses komt als iets niet werkt. Ook staat hier een login_required functie in die ervoor zorgt dat niet iedereen zomaar toegang heeft tot bepaalde webpagina's.
+
+### model.py
+Hierin staan alle functies. Wat ze voornamelijk doen is de database updaten.
+
+### website.db
+Dit is de database waarin alles wat op de site wordt weergegeven wordt opgeslagen en alles uit wordt gehaald.
 
 ## Inloggen en Registreren
 ### Models
