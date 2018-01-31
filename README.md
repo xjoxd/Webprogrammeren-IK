@@ -1,70 +1,119 @@
-# Projectvoorstel 
+# Poject
 *Quintin Raemaekers, Mark Muller en Jo Schreurs*
 
-## Korte omschrijving
-Onze website wordt een plek wordt waar men foto’s kan delen en hierop kan antwoorden of deze leuk kan vinden. Mensen kunnen elkaar volgen; het is dus een concept zoals Instagram. Wat ons project uniek maakt, is dat men diens profiel kan omschrijven met maximaal tien tags. Als iemand anders dan op deze tags zoekt op basis van diens interesses, kan deze persoon naar links swipen als het profiel niet interessant genoeg is, of naar rechts swipen als de persoon het profiel wil volgen. Over de naam van onze website zijn wij overigens nog in beraad.
+## Inloggen en Registreren
+### Models
+register: de nieuwe gebruiker en het wachtwoord worden opgeslagen in de database 'users'.
+login: de gegevens van de inloggende gebruiker worden opgehaald uit de database 'users'.
+
+### Views
+register.html
+login.html
+
+### Controllers
+**Logout (@app.route("/logout"))**
+
+Door middel van POST kan de gebruiker zich uitloggen, geen aparte pagina.
+De gebruiker wordt teruggestuurd naar login.
 
 
-## Schetsen
+**Login (@app.route("/login"))**
 
-### Inlogpagina
-<img src='https://i.imgur.com/uOCrowh.jpg'/>
-De inlogpagina/registratiepagina is vrij simpel. Men kan hier een account aanmaken of inloggen.
-
-### Homepagina
-<img src='https://i.imgur.com/idLabwc.jpg'/>
-Als er ingelogd wordt, komt men op deze pagina. Dit is tevens de homepagina. Hier is het mogelijk om de feed te bekijken, die is ingedeeld op chronologische volgorde.  Hier worden foto's weergegeven van mensen die jij volgt. Deze kunnen geliked worden en het is mogelijk om hierop te reageren. Ook is de navigatiebalk zichtbaar, die zich op elke pagina bevindt. 
-
-### Navigatiebalk
-- Op de nagivatiebalk zijn verscheidene icoontjes zichtbaar. Links bovenaan bevindt zich het logo en de naam. Als hierop gedrukt wordt, wordt de gebruiker naar de homepagina geleid. 
-- Ook is er een zon zichtbaar. Dit is een verwijzing naar de "Tinderpagina" die hieronder nader uitgelegd wordt.
-- De persoon linkt naar het persoonlijke profiel.
-- Het vergrootglas is een zoekbalk waar naar personen gezocht kan worden.
-- Het meldingpictogram creëert een dropdown zodra aangeklikt, met recente notificaties. 
-- Het "tandwiel" linkt naar het instellingenmenu.
-
-### "Tinderpagina"
-<img src='https://i.imgur.com/ZEVp7eE.jpg'/>
-Op deze pagina kan gezocht worden naar tags. Dit zijn de tags die personen zelf hebben aangegeven bij instellingen. Dit is optioneel, maar het werkt als volgt. Men kan bij hun instellingen tot tien tags over zichzelf plaatsen. Een politicus van de D66 heeft bijvoorbeeld de tags #politiek #D66 #politicus #TweedeKamer. Als iemand dan op #politiek zoekt, komen allerlei profielen tevoorschijn die zichzelf met deze tag omschreven hebben. Er komt een preview in beeld van de vijf meest recente/populaire foto's met in het midden de profielfoto van deze persoon. Op basis hiervan kan de gebruiker deze persoon meteen wegswipen of liken of het profiel bezoeken. Als de gebruiker het profiel liket, volgt de gebruiker deze persoon ook direct. Deze functie is er dus om nieuwe profielen te vinden die interessant zijn voor de gebruiker om te volgen.
-
-### Persoonlijke pagina
-<img src='https://i.imgur.com/PpTtY7U.jpg'/>
-Het profiel is relatief simpel. Bovenaan staat de naam met daaronder de gebruikersnaam en daarnaast de profielfoto. Hieronder staan de volgers en volgend. Het overzicht van de foto's is chronologisch en uitgelijnd. Deze paginia is geen onderdeel van het Minimal Viable Product. Het is echter wel de eerstvolgende prioriteit nadat we aan MVP voldaan hebben.
+Door middel van POST kan de gebruiker inloggen en wordt deze doorverwezen naar de index.
 
 
-## Features
-1. *gebruikers kunnen andere gebruikers volgen*
-2. *gebruikers kunnen de foto's bekijken in hun tijdlijn van de gebruikers die zij volgen*
-3. *gebruikers op de foto's reageren en deze liken*
-4. gebruikers kunnen zoeken naar andere gebruikers
-5. gebruikers kunnen meldingen krijgen en bekijken via een dropdown menu
-6. *gebruikers kunnen registreren, inloggen en uitloggen*
-7. *gebruikers kunnen tags instellen die hen en hun profiel omschrijven*
-8. *gebruikers kunnen zoeken op de tags van feature 7*
-9. *gebruikers kunnen mensen volgen als ze hun profiel liken of wegklikken als het profiel hen niet aanstaat*
-10. *gebruikers kunnen foto's en GIFs delen op hun profiel*
-11. gebruikers kunnen profielen van andere gebruikers bekijken
-12. gebruikers kunnen vanaf iedere pagina naar de homepagina, instellingen, "tinderpagina", meldingen en hun eigen profiel
-13. gebruikers kunnen op hun profiel een bio en hun naam schrijven
+**Register (@app.route(/register))**
+
+Door middel van POST kan de gebruiker zich registreren, en wordt deze als alles klopt doorverwezen naar de homepagina.
 
 
-## Minimal Viable Product (MVP)
-Om aan de minimale eisen te voldoen, is een aantal van de bovenstaande features nodig. Dit zijn features 1, 2, 3, 6, 7, 8, 9, 10 en 11.
+## Commenten en liken
+### Models
+comment: voegt de comments toe aan de database 'comments'.
+get_comments: haalt de comments op vanuit de database 'comments'.
+like: voegt een like toe aan de database 'images'.
+
+### Views
+comment.html
+Comments en likes worden weergeven op homepage.html
+
+### Controllers
+**Like (@app.route("/like"))**
+
+Er kan een like toegevoegd aan de foto.
 
 
-## Afhankelijkheden
+**Comment (@app.route("/comment"))**
 
-### Databronnen
-De website die wij gebruiken om ervoor te zorgen dat gebruikers GIFs kunnen uploaden, is https://developers.giphy.com/. 
-
-### Externe componenten
-Voor een opzet van onze website is Bootstrap nodig. Gezien het feit dat wij alledrie geen ervaring hebben met het maken van websites, weten wij niet precies welke externe componenten verder nodig zijn. Naarmate het project vordert, komen wij hier waarschijnlijk vanzelf achter. 
-
-### Concurrerende bestaande websites
-Er zijn drie websites die het meest lijken op de website die wij in gedachten hebben. Allereerst is dit Instagram. Het liken, reageren, foto's delen en volgconcept is hier precies hetzelfde. Interessant is dat er een verkennenpagina bestaat op Instagram, maar gezien de korte tijd en het niveau, is het niet mogelijk voor ons dit te implenteren. Daarnaast is Facebook een goede vergelijking voor onze site. Het verschil is echter dat men hier ook makkelijk kan communiceren via privéberichten of berichten plaatsen op andermans profiel. Ook volgen mensen elkaar hier in principe niet, maar word je vrienden. Dan krijgen de gebruikers elkaars berichten sowieso allebei te zien in hun tijdlijn. Als laatste is Tinder een concurrende website. Wat bij Tinder echter aan de orde is, is dat het gebruikt wordt voor romantische doeleinden, terwijl het bij ons vooral gebruikt wordt voor het ontdekken en volgen van nieuwe mensen. Het is interessant dat Tinder zeer simplistisch is. Dat is ook iets wat wij willen implenteren in onze website, namelijk dat onze website zo weinig mogelijk poespas heeft en makkelijk bruikbaar is.
-
-### Moeilijkste delen
-De moeilijkste delen zijn waarschijnlijk het implenteren van de "Tinderpagina". Ook hebben wij alledrie geen ervaring met het maken van websites, dus het zal sowieso in het begin lastig zijn om alles te zoeken. We hebben hierbij echter wel hulp van de docenten, het internet en de Harvardcursus cs50. Daarnaast wordt het beveiligen van de website en het zorgen dat er geen informatie zoals wachtwoorden makkelijk te hacken zijn ook lastig. Hierbij zullen de colleges en het internet van groot belang zijn.
+Er kunnen comments aan de foto's worden toegevoegd.
 
 
+## Post foto en gifs
+### Models
+upload_file: voegt een afbeelding toe aan de database 'images'.
+giphy: voegt een gif toe aan de database 'images'.
+key: geeft de API_KEY mee. 
+### Views
+post.html
+gif.html
 
+### Controllers
+**Post (@app.route("/post"))**
+
+Foto's met description worden geupload.
+
+
+**Gifsearch (@app.route("/gifsearch"))**
+
+Zoekt de gifs van api.giphy.com.
+
+**LET OP: voor het werken van de API_KEY is het nodig om een key in de terminal in te voeren, met export API_KEY=
+achter het '=' teken gelijk de key.
+
+Als de gebruiker op een gif heeft gezocht, wordt hij/zij naar gif.html gestuurd.
+Als de gebruiker een gif heeft geselecteerd, wordt hij/zij naar de homepagina gestuurd.
+
+
+**Storegif (@app.route("/storegif"))**
+
+Zet de gif als url.
+
+
+**Getgif (@app.route("/getgif"))**
+
+Geeft de juiste url van de gif weer zonder aanverwanten van cs50 IDE.
+
+
+## Settings
+### Models
+tag: voegt 10 tags toe aan de database 'users'.
+
+### Views
+register.html
+
+### Controllers
+**Settings (@app.route("/settings"))**
+
+Geeft de tags mee aan het account van de ingelogde gebruiker.
+
+
+## Discover
+### Models
+discover: geeft profielen weer met de tags waarop gezocht is.
+status_update: update de status van de ingelogde gebruiker.
+follow: update welke gebruiker wie volgt.
+pics: selecteert de foto's vanuit de database.
+username: haalt de username vanuit de database op.
+
+### Views
+discover.html
+discover_profile.html
+
+### Controllers
+**Search (@app.route("/search"))**
+
+Zoekt op de ingevoerde tag. Hierna wordt de ingelogde gebruiker doorgestuurd naar discover_profile.html
+
+**Discover (@app.route("/discover"))**
+
+Zoekt op de profielen met de ingevoerde tag.
