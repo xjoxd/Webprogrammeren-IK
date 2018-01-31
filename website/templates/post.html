@@ -1,33 +1,48 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Register
+    Post
 {% endblock %}
 
 {% block main %}
+<center>
 
     <style>
-    body{
-        background: url("https://i.imgur.com/R0frjW3.jpg") no-repeat;
-        background-size: 100%;
+    #id{
+        margin-left: auto;
+        margin-right: auto;
     }
+
     </style>
 
-
-    <form action="{{ url_for('register') }}" method="post">
+    <h2> Post photo </h2>
+    <form method="POST" enctype=multipart/form-data action="{{ url_for("post") }}">
+        <input type=file class="btn btn-default" name=photo accept=".jpg,.jpeg,.png">
+        <br><br>
+        <textarea class="form-control" placeholder="Description" name="description" maxlength="1000"></textarea>
+        <br><br>
+        <div class = "form-group">
+            <button class = "btn btn-default" type="submit" > Post</button>
+        </div>
+    </form>
+    <br><br>
+    <br><br>
+    <center>
+    <div id="gif">
+    <h2> Post giphy </h2>
+    <form method="post" action="{{ url_for("gifsearch") }}" >
         <fieldset>
-            <div class="form-group">
-                <input required autocomplete="off" maxlength="20" autofocus class="form-control" name="username" placeholder="Username" type="text"/>
             </div>
             <div class="form-group">
-                <input  required class="form-control" maxlength="50" name="password" placeholder="Password" type="password"/>
+                <input class="gif" name="searchgif" placeholder="Search for a gif" type="text"/>
             </div>
             <div class="form-group">
-                <input required class="form-control" name="confirm_password" placeholder="Confirm Password" type="password"/>
-            </div>
-            <div class="form-group">
-                <button class="btn btn-default" type="submit">Register</button>
+                <button class="btn btn-default" type="submit">Search</button>
             </div>
         </fieldset>
     </form>
+    </div>
+    </center>
+</center>
+
 {% endblock %}

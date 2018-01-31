@@ -1,6 +1,13 @@
 # Tinderest
 *Quintin Raemaekers, Mark Muller en Jo Schreurs*
 
+<img src='https://i.imgur.com/diNk5WB.jpg'/>
+<img src='https://i.imgur.com/QwActBD.jpg'/>
+<img src='https://i.imgur.com/AKVYutH.jpg'/>
+<img src='https://i.imgur.com/diNk5WB.jpg'/>
+<img src='https://i.imgur.com/diNk5WB.jpg'/>
+
+
 
 
 ## Inloggen en Registreren
@@ -64,7 +71,7 @@ upload_file: voegt een afbeelding toe aan de database 'images'.
 
 giphy: voegt een gif toe aan de database 'images'.
 
-key: geeft de API_KEY mee. 
+key: geeft de API_KEY mee.
 
 ### Views
 post.html
