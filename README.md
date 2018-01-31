@@ -1,5 +1,5 @@
 # PROJECT
-**Quintin Raemaekers, Mark Muller en Jo Schreurs*
+**Quintin Raemaekers, Mark Muller en Jo Schreurs**
 
 
 
